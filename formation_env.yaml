@@ -73,29 +73,29 @@ Resources:
 
   UsersTable:
     Type: AWS::DynamoDB::Table
-      Properties:
-        AttributeDefinitions:
-          -
-            AttributeName: "id"
-            AttributeType: "S"
-          -
-            AttributeName: "firstName"
-            AttributeType: "S"
-          -
-            AttributeName: "lastName"
-            AttributeType: "S"
-          -
-            AttributeName: "email"
-            AttributeType: "S"
-          -
-            AttributeName: "phoneNumber"
-            AttributeType: "S"
-        KeySchema:
-          -
-            AttributeName: "id"
-            KeyType: "HASH"
-        ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1
-        TableName: !Sub UsersTable_${StageName}
+    Properties:
+      AttributeDefinitions:
+        -
+          AttributeName: "id"
+          AttributeType: "S"
+        -
+          AttributeName: "firstName"
+          AttributeType: "S"
+        -
+          AttributeName: "lastName"
+          AttributeType: "S"
+        -
+          AttributeName: "email"
+          AttributeType: "S"
+        -
+          AttributeName: "phoneNumber"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+      TableName: !Sub UsersTable_${StageName}
 
