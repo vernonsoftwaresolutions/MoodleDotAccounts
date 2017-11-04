@@ -29,14 +29,7 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
     private Logger log = LoggerFactory.getLogger(LambdaHandler.class);
     private static final String STAGE_KEY = "STAGE_KEY";
     public AwsProxyResponse handleRequest(AwsProxyRequest awsProxyRequest, Context context) {
-        //if the stage is passed in, we want to strip it from base path
-        String stageKey = System.getenv(STAGE_KEY);
-        String stage = awsProxyRequest.getStageVariables().get(stageKey);
-        if(stage != null){
 
-            handler.stripBasePath(stage);
-
-        }
         if (handler == null) {
             try {
 
@@ -46,6 +39,15 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
                 return null;
             }
         }
+        //if the stage is passed in, we want to strip it from base path
+        String stageKey = System.getenv(STAGE_KEY);
+        String stage = awsProxyRequest.getStageVariables().get(stageKey);
+        if(stage != null){
+
+            handler.stripBasePath(stage);
+
+        }
+
         return handler.proxy(awsProxyRequest, context);
     }
 }
