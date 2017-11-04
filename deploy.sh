@@ -67,7 +67,7 @@ echo "deploymentId ${deploymentId}"
 #done < names
 
 HANDLER_1_NAME=`aws cloudformation describe-stacks --stack-name  "${API_NAME}" \
-  --query "Stacks[0].[Outputs[?ends_with(OutputValue, '"${HANDLER_1}"')]][0][*].{OutputValue:OutputValue}" --output text`
+  --query "Stacks[0].[Outputs[?ends_with(OutputValue, '${HANDLER_1}')]][0][*].{OutputValue:OutputValue}" --output text`
 
 
 echo "retrieved lambda function ${HANDLER_1_NAME}"
