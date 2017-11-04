@@ -27,10 +27,19 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
 
     private SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
     private Logger log = LoggerFactory.getLogger(LambdaHandler.class);
-
+    private static final String STAGE_KEY = "STAGE_KEY";
     public AwsProxyResponse handleRequest(AwsProxyRequest awsProxyRequest, Context context) {
+        //if the stage is passed in, we want to strip it from base path
+        String stageKey = System.getenv(STAGE_KEY);
+        String stage = awsProxyRequest.getStageVariables().get(stageKey);
+        if(stage != null){
+
+            handler.stripBasePath(stage);
+
+        }
         if (handler == null) {
             try {
+
                 handler = SpringLambdaContainerHandler.getAwsProxyHandler(AppConfig.class);
             } catch (ContainerInitializationException e) {
                 log.error("Cannot initialize spring handler", e);

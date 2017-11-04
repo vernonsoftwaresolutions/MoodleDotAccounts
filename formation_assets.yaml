@@ -124,7 +124,7 @@ Resources:
       Timeout: 15
       Environment:
         Variables:
-          DUMMY: Value
+          STAGE_KEY: env
       Role: !GetAtt LambdaRole.Arn
       Events:
         PostResource:

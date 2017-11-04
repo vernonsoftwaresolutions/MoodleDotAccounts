@@ -32,7 +32,7 @@ public class UsersController {
     private Logger log = LoggerFactory.getLogger(UsersController.class);
     private static final String ERROR = "Missing Required Fields";
 
-    @RequestMapping(path = "/dev/v1/users", method = RequestMethod.POST)
+    @RequestMapping(path = "/v1/users", method = RequestMethod.POST)
     public ResponseEntity createUser(@RequestBody User user) {
         log.debug("Received request {}", user);
         //check to ensure first and last name exist
