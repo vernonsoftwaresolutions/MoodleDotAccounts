@@ -10,7 +10,7 @@ HOSTEDZONENAME=$5
 HANDLER_1=$6
 API_NAME=$7
 GATEWAY_REF=$8
-
+DYNAMO_TABLE=$9
 echo "Packing assets"
 ##
 # Package API Gateway Assets
@@ -25,7 +25,7 @@ echo "Deploying assets"
 ##
 aws cloudformation deploy --template-file \
     formation_assets_output.yaml --capabilities CAPABILITY_IAM \
-    --stack-name ${API_NAME}  --parameter-overrides DNSName="${DNSNAME}" HostedZoneName="${HOSTEDZONENAME}"
+    --stack-name ${API_NAME}  --parameter-overrides DNSName="${DNSNAME}" HostedZoneName="${HOSTEDZONENAME}" UsersTableBaseName="${DYNAMO_TABLE}"
 
 echo "Retrieving API Ref"
 ##

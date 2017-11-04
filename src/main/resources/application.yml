@@ -1,0 +1,11 @@
+spring:
+  profiles: dev
+
+aws.dynamodb.tablename: ${UsersTableBaseName}_dev
+
+---
+
+spring:
+  profiles: stage
+
+aws.dynamodb.tablename: ${UsersTableBaseName}_stage

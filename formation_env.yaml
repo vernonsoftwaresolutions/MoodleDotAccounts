@@ -19,6 +19,10 @@ Parameters:
     Type: String
 
 Resources:
+#############################################
+##  Define Environment Specific API Gateway,
+##  Lambda, and Dynamodb resources
+#############################################
 
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
@@ -46,15 +50,6 @@ Resources:
       RestApiId: !Ref ApiGateway
       Stage: !Ref StageName
 
-  # Moodle Tenant alias
-  LambdaFunctionAlias:
-    Type: AWS::Lambda::Alias
-    Properties:
-      #todo-can this be not imported?
-      FunctionName: !ImportValue PostUsersHandlerArn
-      FunctionVersion: !Ref PostUsersVersion
-      Name: !Ref StageName
-
   ## Invoke Permissions
   LambdaFunctionInvokePermission:
     Type: AWS::Lambda::Permission
@@ -66,3 +61,41 @@ Resources:
       #todo-can this be not imported?
       FunctionName: !Join [":", [ !ImportValue PostUsersHandlerArn, !Ref StageName]]
       SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGateway}/${StageName}/*
+
+  # Moodle Tenant alias
+  LambdaFunctionAlias:
+    Type: AWS::Lambda::Alias
+    Properties:
+      #todo-can this be not imported?
+      FunctionName: !ImportValue PostUsersHandlerArn
+      FunctionVersion: !Ref PostUsersVersion
+      Name: !Ref StageName
+
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: "id"
+            AttributeType: "S"
+          -
+            AttributeName: "firstName"
+            AttributeType: "S"
+          -
+            AttributeName: "lastName"
+            AttributeType: "S"
+          -
+            AttributeName: "email"
+            AttributeType: "S"
+          -
+            AttributeName: "phoneNumber"
+            AttributeType: "S"
+        KeySchema:
+          -
+            AttributeName: "id"
+            KeyType: "HASH"
+        ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+        TableName: !Sub UsersTable_${StageName}
+

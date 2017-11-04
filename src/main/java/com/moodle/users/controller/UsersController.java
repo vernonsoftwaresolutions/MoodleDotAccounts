@@ -14,8 +14,11 @@ package com.moodle.users.controller;
 
 import com.moodle.users.model.Error;
 import com.moodle.users.model.User;
+import com.moodle.users.model.UserDTO;
+import com.moodle.users.service.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -33,24 +36,44 @@ import java.util.UUID;
 @RestController
 @EnableWebMvc
 public class UsersController {
+
+    private UsersService usersService;
+
     private Logger log = LoggerFactory.getLogger(UsersController.class);
     private static final String ERROR = "Missing Required Fields";
 
-    @RequestMapping(path = "/v1/users", method = RequestMethod.POST)
-    public ResponseEntity createUser(@RequestBody User user) {
-        log.debug("Received request {}", user);
-        //check to ensure first and last name exist
-        if(user.getFirstName() == null || user.getLastName() == null){
-            //if either don't exist send unprocessable entity request
-            log.warn("First or Last name missing form request, returning 4XX error");
-            return new ResponseEntity(new Error(ERROR), getCorsHeaders(),HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-        //otherwise set id and return
-        //this is hardcoded for now
+    @Autowired
+    public UsersController(UsersService usersService) {
+        this.usersService = usersService;
+    }
 
-        user.setId(UUID.randomUUID().toString());
-        log.info("New User created {} returning", user);
-        return new ResponseEntity(user, getCorsHeaders(), HttpStatus.CREATED);
+    @RequestMapping(path = "/v1/users", method = RequestMethod.POST)
+    public ResponseEntity createUser(@RequestBody UserDTO user) {
+        try {
+            log.debug("Received request {}", user);
+
+            //check to ensure first and last name exist
+            if (user.getFirstName() == null || user.getLastName() == null) {
+
+                //if either don't exist send unprocessable entity request
+                log.warn("First or Last name missing form request, returning 4XX error");
+
+                return new ResponseEntity(new Error(ERROR), getCorsHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+            }
+
+            //Save user
+            User savedUser = usersService.save(user);
+
+            log.info("New User created {} returning", savedUser);
+            //return success
+            return new ResponseEntity(savedUser, getCorsHeaders(), HttpStatus.CREATED);
+        }
+
+        catch (Exception e){
+            return new ResponseEntity(new Error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()),
+                    getCorsHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
     }
 
     /**

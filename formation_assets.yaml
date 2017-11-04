@@ -12,6 +12,9 @@ Parameters:
     Type: String
     Description: Name of existing route 53 hosted zone name
 
+  UsersTableBaseName:
+    Type: String
+    Description: Name of the base table name for dynamodb
 
 Resources:
 
@@ -112,6 +115,9 @@ Resources:
                 Effect: "Allow"
                 Action: "*"
                 Resource: "*"
+
+  # arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TableName}_"aws:RequestTag/env"
+
   # Application assets
   PostUsersHandler:
     Type: AWS::Serverless::Function
@@ -124,6 +130,7 @@ Resources:
       Timeout: 15
       Environment:
         Variables:
+          TABLE_NAME: !Ref UsersTableBaseName
           STAGE_KEY: env
       Role: !GetAtt LambdaRole.Arn
       Events:

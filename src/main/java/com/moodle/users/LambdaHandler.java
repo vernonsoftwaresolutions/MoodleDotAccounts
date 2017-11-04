@@ -71,9 +71,19 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
         //if the stage is passed in, we want to strip it from base path
         //so first get the ENV Variable to perform the lookup with
         Optional<String> stage = helper.getStageName(awsProxyRequest);
-        //if the stage exists, then strip the pre-fix
+        //if the stage exists, then strip the pre-fix and set the active profile
         if(stage.isPresent()){
             handler.stripBasePath(stage.get());
+            try {
+                //try to set spring profile as well
+                handler.activateSpringProfiles(stage.get());
+            } catch (ContainerInitializationException e) {
+
+                //if we can't set this make sure to fail hard as we could end up with
+                //very weird situations otherwise
+                log.error("Error initializing Lambda Handler ", e);
+                return null;
+            }
         }
         //then process as usual
         return handler.proxy(awsProxyRequest, context);
