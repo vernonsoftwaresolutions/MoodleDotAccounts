@@ -1,6 +1,7 @@
 package com.moodle.users;
 
 
+import com.moodle.users.controller.UsersController;
 import com.moodle.users.model.Error;
 import com.moodle.users.model.User;
 import org.junit.Before;
@@ -72,6 +73,36 @@ public class UsersControllerTest {
         user.setFirstName(null);
         ResponseEntity<Error> response = usersController.createUser(this.user);
         assertThat(response.getBody().getMessage(), is("Missing Required Fields"));
+
+    }
+    @Test
+    public void createUserHeadersExist() throws Exception {
+        UsersController usersController = new UsersController();
+        user.setFirstName(null);
+        ResponseEntity<Error> response = usersController.createUser(this.user);
+        assertThat(response.getHeaders().size(), is(1));
+
+    }
+    @Test
+    public void createUserHeaders() throws Exception {
+        UsersController usersController = new UsersController();
+        ResponseEntity response = usersController.createUser(this.user);
+        assertThat(response.getHeaders().size(), is(1));
+
+    }
+    @Test
+    public void createUser422HeadersExistString() throws Exception {
+        UsersController usersController = new UsersController();
+        user.setFirstName(null);
+        ResponseEntity<Error> response = usersController.createUser(this.user);
+        assertThat(response.getHeaders().get("Access-Control-Allow-Origin").get(0), is("*"));
+
+    }
+    @Test
+    public void createUser202HeadersExistString() throws Exception {
+        UsersController usersController = new UsersController();
+        ResponseEntity response = usersController.createUser(this.user);
+        assertThat(response.getHeaders().get("Access-Control-Allow-Origin").get(0), is("*"));
 
     }
 }
