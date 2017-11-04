@@ -1,62 +1,17 @@
 # Serverless Spring example
-A basic pet store written with the [Spring framework](https://projects.spring.io/spring-framework/). The `LambdaHandler` object is the main entry point for Lambda.
+A basic Users RESTful API written with the [Spring framework](https://projects.spring.io/spring-framework/). The `LambdaHandler` object is the main entry point for Lambda.
 
-The application can be deployed in an AWS account using the [Serverless Application Model](https://github.com/awslabs/serverless-application-model). The `sam.yaml` file in the root folder contains the application definition
+The application uses the [Serverless Application Model](https://github.com/awslabs/serverless-application-model) for deployment. 
+
+This takes the form in two files; formation_assets.yaml and formation_env.yaml.  The 'assets' are all AWS resources that only need to be created once.  That is, API Gateway, Lambda function (not Alias' or versions), AWS certificates, and DNS name
+The "env" are the environment specific resources such as Lambda aliases, Lambda versions, Lambda/Gateway Permissions, API Gateway URL Mappings, etc  
 
 ## Installation
-To build and install the sample application you will need [Maven](https://maven.apache.org/) and the [AWS CLI](https://aws.amazon.com/cli/) installed on your computer.
+To build and install the sample application you will need [Maven](https://maven.apache.org/) and the [AWS CLI](https://aws.amazon.com/cli/)
 
-In a shell, navigate to the sample's folder and use maven to build a deployable jar.
+Use maven to build a deployable jar.
 ```
 $ mvn package
 ```
 
-This command should generate a `serverless-spring-example-1.0-SNAPSHOT.jar` in the `target` folder. Now that we have generated the jar file, we can use the AWS CLI to package the template for deployment. 
-
-You will need an S3 bucket to store the artifacts for deployment. Once you have created the S3 bucket, run the following command from the sample's folder:
-
-```
-$ aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket <YOUR S3 BUCKET NAME>
-Uploading to xxxxxxxxxxxxxxxxxxxxxxxxxx  6464692 / 6464692.0  (100.00%)
-Successfully packaged artifacts and wrote output template to file output-sam.yaml.
-Execute the following command to deploy the packaged template
-aws cloudformation deploy --template-file /your/path/output-sam.yaml --stack-name <YOUR STACK NAME>
-```
-
-As the command output suggests, you can now use the cli to deploy the application. Choose a stack name and run the `aws cloudformation deploy` command from the output of the package command.
- 
-```
-$ aws cloudformation deploy --template-file output-sam.yaml --stack-name ServerlessSpringSample --capabilities CAPABILITY_IAM
-```
-
-Once the application is deployed, you can describe the stack to show the API endpoint that was created. The endpoint should be the `SparkPetStoreApi` key of the `Outputs` property:
-
-```
-$ aws cloudformation describe-stacks --stack-name ServerlessSpringSample
-{
-    "Stacks": [
-        {
-            "StackId": "arn:aws:cloudformation:us-west-2:xxxxxxxx:stack/JerseySample/xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxx", 
-            "Description": "Example Pet Store API written with spark with the aws-serverless-java-container library", 
-            "Tags": [], 
-            "Outputs": [
-                {
-                    "Description": "URL for application", 
-                    "OutputKey": "PetStoreApi", 
-                    "OutputValue": "https://xxxxxxx.execute-api.us-west-2.amazonaws.com/Prod/pets"
-                }
-            ], 
-            "CreationTime": "2016-12-13T22:59:31.552Z", 
-            "Capabilities": [
-                "CAPABILITY_IAM"
-            ], 
-            "StackName": "JerseySample", 
-            "NotificationARNs": [], 
-            "StackStatus": "UPDATE_COMPLETE"
-        }
-    ]
-}
-
-```
-
-Copy the `OutputValue` into a browser to test a first request.
+This command should generate a `moodle-users-1.0.jar` in the `target` folder. This is then referenced in the cloudformation template to  
