@@ -1,0 +1,159 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Model Users Api Assets
+
+Parameters:
+
+  DNSName:
+    Type: String
+    Description: Name of Moodle API route 53 entry to use for target
+
+  HostedZoneName:
+    Type: String
+    Description: Name of existing route 53 hosted zone name
+
+
+Resources:
+
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName:
+        Ref: DNSName
+
+  DomainName:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      CertificateArn: !Ref Certificate
+      DomainName: !Ref DNSName
+
+  LambdaDNS:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneName:
+        Ref: HostedZoneName
+      Comment: Zone apex alias targeted to ApiGateway
+      RecordSets:
+      - Name:
+          !Join ["", [Ref: DNSName, "."]]
+        Type: A
+        AliasTarget:
+          HostedZoneId: Z2FDTNDATAQYW2 # This is hardcoded for all CloudFormation templates
+          DNSName: !GetAtt DomainName.DistributionDomainName
+
+  #API Gateway definition
+  APIGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Latest
+      DefinitionBody:
+        swagger: 2.0
+        info:
+          title: !Ref AWS::StackName
+        paths:
+          "/v1/users":
+            post:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostUsersHandler.Arn}:${!stageVariables.env}/invocations
+              responses: {}
+            options:
+              consumes:
+              - application/json
+              produces:
+              - application/json
+              responses:
+                "200":
+                  description: 200 response
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: string
+                    Access-Control-Allow-Methods:
+                      type: string
+                    Access-Control-Allow-Headers:
+                      type: string
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: 200
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: when_no_match
+                requestTemplates:
+                  application/json: "{\"statusCode\": 200}"
+                type: mock
+  #todo- this needs to be cleaned up to "least priviledge"
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        -
+          PolicyName: "root"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Action: "*"
+                Resource: "*"
+  # Application assets
+  PostUsersHandler:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.moodle.users.LambdaHandler
+      FunctionName: PostUsersHandler
+      MemorySize: 512
+      Runtime: java8
+      CodeUri: target/moodle-users-1.0.jar
+      Timeout: 15
+      Environment:
+        Variables:
+          DUMMY: Value
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        PostResource:
+          Type: Api
+          Properties:
+            RestApiId: !Ref APIGateway
+            Path: /v1/users
+            Method: post
+            
+  PostUsersHandlerVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName:
+        Ref: PostUsersHandler
+      Description: Most recent published version
+
+Outputs:
+  Certificate:
+    Value: !Ref Certificate
+
+  UsersApiGatewayRef:
+    Value: !Ref APIGateway
+
+  PostUsersHandlerArn:
+    Value: !GetAtt PostUsersHandler.Arn
+    Export:
+      Name: PostUsersHandlerArn
+
+  PostUsersHandlerVersion:
+    Value: !GetAtt PostUsersHandlerVersion.Version
+    Export:
+      Name: PostUsersHandlerVersion

@@ -1,0 +1,108 @@
+{
+	"id": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+	"name": "Moodle_Users",
+	"description": "",
+	"order": [
+		"b32f31df-b92d-fefe-3c46-44c72dcda4b8",
+		"2577298e-71b9-03ff-c732-eea3474a16ed",
+		"d898d6d5-d7d6-398c-d143-b1ef51b48bc6"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1509774794505,
+	"owner": "837563",
+	"public": false,
+	"requests": [
+		{
+			"id": "2577298e-71b9-03ff-c732-eea3474a16ed",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://users.vssdevelopment.com/dev/v1/users",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1509774891649,
+			"name": "Cold Start",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"email\",\n\t\"phoneNumber\": \"1234123234\"\n\t\n}\n"
+		},
+		{
+			"id": "b32f31df-b92d-fefe-3c46-44c72dcda4b8",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://users.vssdevelopment.com/dev/v1/users",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1509774894406,
+			"name": "Cold Start",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"email\",\n\t\"phoneNumber\": \"1234123234\"\n\t\n}\n"
+		},
+		{
+			"id": "d898d6d5-d7d6-398c-d143-b1ef51b48bc6",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://users.vssdevelopment.com/dev/v1/users",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Post Moodle Users",
+			"description": "Moodle Users Resources",
+			"descriptionFormat": "html",
+			"time": 1509774796073,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"email\",\n\t\"phoneNumber\": \"1234123234\"\n\t\n}\n"
+		}
+	]
+}
