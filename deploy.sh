@@ -9,7 +9,9 @@ DNSNAME=$4
 HOSTEDZONENAME=$5
 HANDLER_1=$6
 API_NAME=$7
+GATEWAY_REF=$8
 
+echo "Packing assets"
 ##
 # Package API Gateway Assets
 ##
@@ -17,6 +19,7 @@ aws cloudformation package --template-file \
     formation_assets.yaml --output-template-file \
     formation_assets_output.yaml --s3-bucket $S3_BUCKET
 
+echo "Deploying assets"
 ##
 # Deploy Assets
 ##
@@ -24,13 +27,15 @@ aws cloudformation deploy --template-file \
     formation_assets_output.yaml --capabilities CAPABILITY_IAM \
     --stack-name ${API_NAME}  --parameter-overrides DNSName="${DNSNAME}" HostedZoneName="${HOSTEDZONENAME}"
 
+echo "Retrieving API Ref"
 ##
 # get the api gateway ref
 ##
 apiGatewayApiRef=`aws cloudformation describe-stacks \
                     --stack-name "${API_NAME}" --query \
-                    "Stacks[0].[Outputs[? starts_with(OutputKey, 'DemoApiGatewayRef')]][0][*].{OutputValue:OutputValue}" \
+                    "Stacks[0].[Outputs[? starts_with(OutputKey, '${GATEWAY_REF}')]][0][*].{OutputValue:OutputValue}" \
                     --output text`
+
 echo "api gateway ref ${apiGatewayApiRef}"
 ##
 # get the current deploymentId
