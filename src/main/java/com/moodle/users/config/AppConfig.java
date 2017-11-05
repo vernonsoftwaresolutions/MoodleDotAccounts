@@ -16,6 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("com.moodle.users")
+@ComponentScan(value = "com.moodle.users", lazyInit = true)
 public class AppConfig {
 }

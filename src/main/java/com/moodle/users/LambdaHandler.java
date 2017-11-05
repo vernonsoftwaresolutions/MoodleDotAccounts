@@ -63,11 +63,7 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
         //so first get the ENV Variable to perform the lookup with
         log.debug("About to get stage");
         Optional<String> stage = helper.getStageName(awsProxyRequest);
-        //if the stage exists, then strip the pre-fix and set the active profile
-        if(stage.isPresent()) {
 
-            System.setProperty(PROFILE_KEY, stage.get());
-        }
         //then process as usual
         if (handler == null) {
             log.debug("Handler is null, creating new instance");
@@ -75,11 +71,16 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
 
                 handler = SpringLambdaContainerHandler.getAwsProxyHandler(AppConfig.class);
                 log.debug("Created handler");
+                if (stage.isPresent()) {
+                    log.debug("Stage is present, setting spring profile to {} ", stage.get());
+                    handler.activateSpringProfiles(stage.get());
+                }
             } catch (ContainerInitializationException e) {
                 log.error("Cannot initialize spring handler", e);
                 return null;
             }
         }
+        //if the stage exists, then strip the pre-fix and set the active profile
         if (stage.isPresent()) {
 
             log.info("Request received for stage {} stripping base path", stage.get());
@@ -88,5 +89,6 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
         //set environment variable
         return handler.proxy(awsProxyRequest, context);
     }
+
 
 }
