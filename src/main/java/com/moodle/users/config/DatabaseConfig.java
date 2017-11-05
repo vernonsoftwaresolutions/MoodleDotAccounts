@@ -5,6 +5,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.moodle.users.config.spring.ProfileManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,14 @@ public class DatabaseConfig {
     private Logger log = LoggerFactory.getLogger(DatabaseConfig.class);
 
     @Autowired
-    Environment environment;
+    private ProfileManager profileManager;
+
+    @Autowired
+    private Environment environment;
 
     private static final String PROFILE_KEY = "profile";
     private static final String TABLE_KEY = "TABLE_NAME";
 
-    @Value("${spring.profiles.active}")
-    private String profile;
     /**
      * Bean to retrieve DynamoDBMapper
      * @return
@@ -72,14 +74,8 @@ public class DatabaseConfig {
         String table = env.getOrDefault(TABLE_KEY, TABLE_KEY);
         log.debug("Retrieved table name ", table);
 
-        String tableName = table + "_" + profile;
+        String tableName = table + "_" + profileManager.getActiveProfile();
         log.debug("Created tablename {}", tableName);
-
-
-        //todo- sorry for debuging REMOVE ME!
-        for (final String profileName : environment.getActiveProfiles()) {
-            log.info("Currently active profile - " + profileName);
-        }
 
         return DynamoDBMapperConfig
                 .builder()
