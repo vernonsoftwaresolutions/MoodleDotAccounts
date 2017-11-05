@@ -124,7 +124,7 @@ Resources:
     Properties:
       Handler: com.moodle.users.LambdaHandler
       FunctionName: PostUsersHandler
-      MemorySize: 512
+      MemorySize: 1024
       Runtime: java8
       CodeUri: target/moodle-users-1.0.jar
       Timeout: 15

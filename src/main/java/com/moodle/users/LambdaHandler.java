@@ -34,20 +34,22 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
     private EnvironmentHelper helper;
 
     public LambdaHandler() {
+        log.info("Logging from no args constructor");
         //todo- Think through is there if there is a better way to pass this around
         //it's not horrible but since it's also a spring bean we'll have two of these guys hanging around
         //so it's worth thinking through a better pattern perhaps
         helper = new EnvironmentHelper();
     }
-//
-//    //todo-I hate that I have to create a dummy constructor for this
-//    //todo- I need to fully understand how this framework works so I can start to spin up
-//    // todo- full contexts within Junit but that's not really MVP
-//    public LambdaHandler(SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler,
-//                         EnvironmentHelper helper) {
-//        this.handler = handler;
-//        this.helper = helper;
-//    }
+
+    //todo-I hate that I have to create a dummy constructor for this
+    //todo- I need to fully understand how this framework works so I can start to spin up
+    // todo- full contexts within Junit but that's not really MVP
+    public LambdaHandler(SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler,
+                         EnvironmentHelper helper) {
+        log.info("Logging from args constructor");
+        this.handler = handler;
+        this.helper = helper;
+    }
 
     /**
      * Method to hijack the aws lambda request and create spring context
