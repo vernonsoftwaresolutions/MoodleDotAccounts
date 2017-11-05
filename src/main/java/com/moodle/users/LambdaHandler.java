@@ -73,7 +73,9 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
         Optional<String> stage = helper.getStageName(awsProxyRequest);
         //if the stage exists, then strip the pre-fix and set the active profile
         if(stage.isPresent()){
+
             handler.stripBasePath(stage.get());
+
             try {
                 //try to set spring profile as well
                 handler.activateSpringProfiles(stage.get());

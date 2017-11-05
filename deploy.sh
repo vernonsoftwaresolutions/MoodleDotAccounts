@@ -99,7 +99,7 @@ aws cloudformation package --template-file \
     formation_env_output.yaml --s3-bucket $S3_BUCKET
 
 ##
-# Deploy template
+# Deploy to dev
 ##
 echo "about to deploy environment with variables ${apiGatewayApiRef} ${ENV} ${deploymentId} ${LAMBDAVERSION_1} ${DNSNAME}"
 
