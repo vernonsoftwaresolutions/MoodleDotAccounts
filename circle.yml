@@ -13,7 +13,6 @@ test:
   override:
     - mvn package
     - aws cloudformation validate-template --template-body file://lambda_api.yaml
-    - aws cloudformation validate-template --template-body file://formation_env.yaml
 
 deployment:
   development:
