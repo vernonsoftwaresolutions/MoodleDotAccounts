@@ -24,7 +24,7 @@
 					"enabled": true
 				}
 			],
-			"url": "https://users.vssdevelopment.com/dev/v1/users",
+			"url": "{{URL}}/v1/users",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -36,7 +36,7 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1509774891649,
+			"time": 1509922376888,
 			"name": "Cold Start",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
@@ -54,7 +54,7 @@
 					"enabled": true
 				}
 			],
-			"url": "https://users.vssdevelopment.com/dev/v1/users",
+			"url": "{{URL}}/v1/users",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -66,7 +66,7 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1509774894406,
+			"time": 1509922373467,
 			"name": "Cold Start",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
@@ -84,7 +84,7 @@
 					"enabled": true
 				}
 			],
-			"url": "https://users.vssdevelopment.com/dev/v1/users",
+			"url": "{{URL}}/v1/users",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -96,12 +96,12 @@
 			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1509813377868,
+			"time": 1509922379592,
 			"name": "Post Moodle Users",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
-			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"email\",\n\t\"phoneNumber\": \"1234123234\"\n\t\n}\n"
+			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\"\n\t\n}\n"
 		}
 	]
 }

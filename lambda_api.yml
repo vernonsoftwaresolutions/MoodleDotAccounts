@@ -12,23 +12,31 @@ Parameters:
     Type: String
     Description: Name of existing route 53 hosted zone name
 
-  UsersTableBaseName:
+  TableBaseName:
     Type: String
     Description: Name of the base table name for dynamodb
+
+  Stage:
+    Type: String
+    AllowedValues:
+      - dev
+      - stage
+      - prod
+    Default: dev
+    Description: Stage that can be added to resource names
 
 Resources:
 
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName:
-        Ref: DNSName
+      DomainName: !Sub ${Stage}.${DNSName}
 
   DomainName:
     Type: AWS::ApiGateway::DomainName
     Properties:
       CertificateArn: !Ref Certificate
-      DomainName: !Ref DNSName
+      DomainName: !Sub ${Stage}.${DNSName}
 
   LambdaDNS:
     Type: AWS::Route53::RecordSetGroup
@@ -37,8 +45,7 @@ Resources:
         Ref: HostedZoneName
       Comment: Zone apex alias targeted to ApiGateway
       RecordSets:
-      - Name:
-          !Join ["", [Ref: DNSName, "."]]
+      - Name: !Sub ${Stage}.${DNSName}.
         Type: A
         AliasTarget:
           HostedZoneId: Z2FDTNDATAQYW2 # This is hardcoded for all CloudFormation templates
@@ -48,7 +55,7 @@ Resources:
   APIGateway:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: Latest
+      StageName: !Ref Stage
       DefinitionBody:
         swagger: 2.0
         info:
@@ -59,7 +66,7 @@ Resources:
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
-                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostUsersHandler.Arn}:${!stageVariables.env}/invocations
+                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostUsersHandler.Arn}/invocations
               responses: {}
             options:
               consumes:
@@ -123,15 +130,15 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.moodle.users.LambdaHandler
-      FunctionName: PostUsersHandler
+      FunctionName: !Sub PostUsersHandler_${Stage}
       MemorySize: 1024
       Runtime: java8
       CodeUri: target/moodle-users-1.0.jar
       Timeout: 15
       Environment:
         Variables:
-          TABLE_NAME: !Ref UsersTableBaseName
-          STAGE_KEY: env
+          TABLE_NAME: !Sub ${TableBaseName}_${Stage}
+          ENVIRONMENT: !Ref Stage
       Role: !GetAtt LambdaRole.Arn
       Events:
         PostResource:
@@ -140,7 +147,7 @@ Resources:
             RestApiId: !Ref APIGateway
             Path: /v1/users
             Method: post
-            
+
   PostUsersHandlerVersion:
     Type: AWS::Lambda::Version
     Properties:
@@ -148,19 +155,91 @@ Resources:
         Ref: PostUsersHandler
       Description: Most recent published version
 
-Outputs:
-  Certificate:
-    Value: !Ref Certificate
+#############################################
+##  Define Environment Specific API Gateway,
+##  Lambda, and Dynamodb resources
+#############################################
+#  Deployment:
+#    Type: AWS::ApiGateway::Deployment
+#    Properties:
+#      Description: !Sub Deployment for ${Stage}
+#      RestApiId: !Ref APIGateway
+#      StageName: !Ref Stage
 
-  UsersApiGatewayRef:
-    Value: !Ref APIGateway
+#  ApiGatewayStage:
+#    Type: AWS::ApiGateway::Stage
+#    Properties:
+#      StageName: !Ref Stage
+#      RestApiId: !Ref APIGateway
+#      DeploymentId: !Ref Deployment
+#      Variables:
+#        env: !Ref Stage
+#      #note-this requires api gateway to have appropriate role
+#      MethodSettings:
+#        - DataTraceEnabled: true
+#          HttpMethod: "*"
+#          LoggingLevel: INFO
+#          ResourcePath: "/*"
+#          MetricsEnabled: true
+##
+  UrlMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !Ref DomainName
+      RestApiId: !Ref APIGateway
+      Stage: !Ref Stage
 
-  PostUsersHandlerArn:
-    Value: !GetAtt PostUsersHandler.Arn
-    Export:
-      Name: PostUsersHandlerArn
+  ## Invoke Permissions
+#  LambdaFunctionInvokePermission:
+#    Type: AWS::Lambda::Permission
+##    DependsOn:
+##      - LambdaFunctionAlias
+#    Properties:
+#      Action: lambda:InvokeFunction
+#      Principal: apigateway.amazonaws.com
+#      #todo-can this be not imported?
+#      FunctionName: !Join [":", [ !ImportValue PostUsersHandlerArn, !Ref StageName]]
+#      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGateway}/*
+#
+#  # Moodle Tenant alias
+#  LambdaFunctionAlias:
+#    Type: AWS::Lambda::Alias
+#    Properties:
+#      #todo-can this be not imported?
+#      FunctionName: !ImportValue PostUsersHandlerArn
+#      FunctionVersion: !Ref PostUsersVersion
+#      Name: !Ref StageName
 
-  PostUsersHandlerVersion:
-    Value: !GetAtt PostUsersHandlerVersion.Version
-    Export:
-      Name: PostUsersHandlerVersion
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        -
+          AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+      TableName: !Sub ${TableBaseName}_${Stage}
+
+
+#Outputs:
+#  Certificate:
+#    Value: !Ref Certificate
+#
+#  UsersApiGatewayRef:
+#    Value: !Ref APIGateway
+#
+#  PostUsersHandlerArn:
+#    Value: !GetAtt PostUsersHandler.Arn
+#    Export:
+#      Name: PostUsersHandlerArn
+#
+#  PostUsersHandlerVersion:
+#    Value: !GetAtt PostUsersHandlerVersion.Version
+#    Export:
+#      Name: PostUsersHandlerVersion

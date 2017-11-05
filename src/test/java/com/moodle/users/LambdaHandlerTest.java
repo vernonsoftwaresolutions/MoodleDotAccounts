@@ -72,8 +72,6 @@ public class LambdaHandlerTest {
         assertEquals(result, response);
 
         //make sure the spy was called
-        Mockito.verify(handler).stripBasePath(stage);
-
         Mockito.verify(handler).proxy(awsProxyRequest, context);
 
     }

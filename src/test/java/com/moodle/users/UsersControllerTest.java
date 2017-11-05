@@ -81,6 +81,12 @@ public class UsersControllerTest {
 
     }
     @Test
+    public void createUserNulluser() throws Exception {
+        ResponseEntity<Error> response = usersController.createUser(null);
+        assertThat(response.getBody().getMessage(), is("Missing Required Fields"));
+
+    }
+    @Test
     public void createUserNoFirstNameMessage() throws Exception {
         user.setFirstName(null);
         ResponseEntity<Error> response = usersController.createUser(this.user);

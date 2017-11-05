@@ -50,6 +50,12 @@ public class UsersController {
     @RequestMapping(path = "/v1/users", method = RequestMethod.POST)
     public ResponseEntity createUser(@RequestBody UserDTO user) {
         try {
+            if(user == null){
+                //if either don't exist send unprocessable entity request
+                log.warn("Null user, returning error");
+
+                return new ResponseEntity(new Error(ERROR), getCorsHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+            }
             log.debug("Received request {}", user);
 
             //check to ensure first and last name exist

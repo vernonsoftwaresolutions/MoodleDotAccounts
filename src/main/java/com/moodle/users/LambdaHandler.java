@@ -60,33 +60,18 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
      * @return
      */
     public AwsProxyResponse handleRequest(AwsProxyRequest awsProxyRequest, Context context) {
-        //if the stage is passed in, we want to strip it from base path
-        //so first get the ENV Variable to perform the lookup with
-        log.debug("About to get stage");
-        Optional<String> stage = helper.getStageName(awsProxyRequest);
 
-        //then process as usual
         if (this.handler == null) {
             log.debug("Handler is null, creating new instance");
             try {
 
                 this.handler = SpringLambdaContainerHandler.getAwsProxyHandler(AppConfig.class);
                 log.debug("Created handler");
-                if (stage.isPresent()) {
-                    log.debug("Stage is present, setting spring profile to {} ", stage.get());
-                    this.handler.activateSpringProfiles(stage.get());
-                }
             } catch (ContainerInitializationException e) {
                 log.error("Cannot initialize spring handler", e);
                 return null;
             }
         }
-        //if the stage exists, then strip the pre-fix and set the active profile
-        if (stage.isPresent()) {
-            log.info("Request received for stage {} stripping base path", stage.get());
-            this.handler.stripBasePath(stage.get());
-        }
-        //set environment variable
         return this.handler.proxy(awsProxyRequest, context);
     }
 
