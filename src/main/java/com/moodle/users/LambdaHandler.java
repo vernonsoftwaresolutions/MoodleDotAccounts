@@ -29,7 +29,6 @@ import java.util.Optional;
 
 public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyResponse> {
 
-    private static final String PROFILE_KEY = "profile";
     private static SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
     private Logger log = LoggerFactory.getLogger(LambdaHandler.class);
     private EnvironmentHelper helper;
@@ -40,15 +39,15 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
         //so it's worth thinking through a better pattern perhaps
         helper = new EnvironmentHelper();
     }
-
-    //todo-I hate that I have to create a dummy constructor for this
-    //todo- I need to fully understand how this framework works so I can start to spin up
-    // todo- full contexts within Junit but that's not really MVP
-    public LambdaHandler(SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler,
-                         EnvironmentHelper helper) {
-        this.handler = handler;
-        this.helper = helper;
-    }
+//
+//    //todo-I hate that I have to create a dummy constructor for this
+//    //todo- I need to fully understand how this framework works so I can start to spin up
+//    // todo- full contexts within Junit but that's not really MVP
+//    public LambdaHandler(SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler,
+//                         EnvironmentHelper helper) {
+//        this.handler = handler;
+//        this.helper = helper;
+//    }
 
     /**
      * Method to hijack the aws lambda request and create spring context
@@ -65,15 +64,15 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
         Optional<String> stage = helper.getStageName(awsProxyRequest);
 
         //then process as usual
-        if (handler == null) {
+        if (this.handler == null) {
             log.debug("Handler is null, creating new instance");
             try {
 
-                handler = SpringLambdaContainerHandler.getAwsProxyHandler(AppConfig.class);
+                this.handler = SpringLambdaContainerHandler.getAwsProxyHandler(AppConfig.class);
                 log.debug("Created handler");
                 if (stage.isPresent()) {
                     log.debug("Stage is present, setting spring profile to {} ", stage.get());
-                    handler.activateSpringProfiles(stage.get());
+                    this.handler.activateSpringProfiles(stage.get());
                 }
             } catch (ContainerInitializationException e) {
                 log.error("Cannot initialize spring handler", e);
@@ -82,12 +81,11 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
         }
         //if the stage exists, then strip the pre-fix and set the active profile
         if (stage.isPresent()) {
-
             log.info("Request received for stage {} stripping base path", stage.get());
-            handler.stripBasePath(stage.get());
+            this.handler.stripBasePath(stage.get());
         }
         //set environment variable
-        return handler.proxy(awsProxyRequest, context);
+        return this.handler.proxy(awsProxyRequest, context);
     }
 
 
