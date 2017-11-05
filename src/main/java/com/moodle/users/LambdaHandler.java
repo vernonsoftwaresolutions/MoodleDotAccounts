@@ -29,6 +29,7 @@ import java.util.Optional;
 
 public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyResponse> {
 
+    private static final String PROFILE_KEY = "profile";
     private SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
     private Logger log = LoggerFactory.getLogger(LambdaHandler.class);
     private EnvironmentHelper helper;
@@ -75,17 +76,8 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
         if(stage.isPresent()){
 
             handler.stripBasePath(stage.get());
-
-            try {
-                //try to set spring profile as well
-                handler.activateSpringProfiles(stage.get());
-            } catch (ContainerInitializationException e) {
-
-                //if we can't set this make sure to fail hard as we could end up with
-                //very weird situations otherwise
-                log.error("Error initializing Lambda Handler ", e);
-                return null;
-            }
+            //set environment variable
+            System.setProperty(PROFILE_KEY, stage.get());
         }
         //then process as usual
         return handler.proxy(awsProxyRequest, context);

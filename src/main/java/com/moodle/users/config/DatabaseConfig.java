@@ -5,22 +5,19 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+
 
 /**
  * Created by andrewlarsen on 11/4/17.
  */
 @Component
 public class DatabaseConfig {
-
-    @Value("${aws.dynamodb.tablename}")
-    private String tableName;
-
+    private static final String PROFILE_KEY = "profile";
+    private static final String TABLE_KEY = "TABLE_NAME";
     /**
      * Bean to retrieve DynamoDBMapper
      * @return
@@ -46,6 +43,12 @@ public class DatabaseConfig {
      * @return
      */
     private DynamoDBMapperConfig buildConfig() {
+
+        Map<String, String> env = System.getenv();
+        String table = env.getOrDefault(TABLE_KEY, TABLE_KEY);
+        String stage = env.getOrDefault(PROFILE_KEY, PROFILE_KEY);
+        String tableName = table + "_" + stage;
+
         return DynamoDBMapperConfig
                 .builder()
                 .withTableNameResolver((clazz, config) -> {
