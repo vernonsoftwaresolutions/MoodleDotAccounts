@@ -70,6 +70,7 @@ public class UsersController {
         }
 
         catch (Exception e){
+            log.error("Error processing request ", e);
             return new ResponseEntity(new Error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()),
                     getCorsHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 
