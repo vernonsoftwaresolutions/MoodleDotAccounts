@@ -7,8 +7,6 @@ import com.amazonaws.serverless.proxy.internal.ResponseWriter;
 import com.amazonaws.serverless.proxy.internal.SecurityContextWriter;
 import com.amazonaws.serverless.proxy.internal.model.AwsProxyRequest;
 import com.amazonaws.serverless.proxy.internal.model.AwsProxyResponse;
-import com.amazonaws.serverless.proxy.internal.servlet.AwsHttpServletResponse;
-import com.amazonaws.serverless.proxy.internal.servlet.AwsProxyHttpServletRequest;
 import com.amazonaws.serverless.proxy.spring.SpringLambdaContainerHandler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.moodle.users.lambda.EnvironmentHelper;

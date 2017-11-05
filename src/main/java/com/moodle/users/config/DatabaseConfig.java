@@ -29,8 +29,8 @@ public class DatabaseConfig {
     private static final String PROFILE_KEY = "profile";
     private static final String TABLE_KEY = "TABLE_NAME";
 
-    @Value("${aws.dynamodb.tablename}")
-    private String tableNameString;
+    @Value("${spring.profiles.active}")
+    private String profile;
     /**
      * Bean to retrieve DynamoDBMapper
      * @return
@@ -58,6 +58,11 @@ public class DatabaseConfig {
      * @return
      */
     private DynamoDBMapperConfig buildConfig() {
+        //note-the following logic is a little too tightly
+        //couple to the active profile.  However,
+        //i am trying to avoid too much boilerplate
+        //for now.  Can refactor later to include more
+        //sophisticated environment specific properties
         log.debug("About to build config");
 
         Map<String, String> env = System.getenv();
@@ -66,12 +71,11 @@ public class DatabaseConfig {
 
         String table = env.getOrDefault(TABLE_KEY, TABLE_KEY);
         log.debug("Retrieved table name ", table);
-        String stage = env.getOrDefault(PROFILE_KEY, PROFILE_KEY);
-        log.debug("Retrieved stage name ", stage);
-        String tableName = table + "_" + stage;
+
+        String tableName = table + "_" + profile;
         log.debug("Created tablename {}", tableName);
 
-        log.debug("TableNameString {} ", tableNameString);
+
         //todo- sorry for debuging REMOVE ME!
         for (final String profileName : environment.getActiveProfiles()) {
             log.info("Currently active profile - " + profileName);
@@ -80,7 +84,7 @@ public class DatabaseConfig {
         return DynamoDBMapperConfig
                 .builder()
                 .withTableNameResolver((clazz, config) -> {
-                    return tableNameString;
+                    return tableName;
                 })
                 .build();
     }
