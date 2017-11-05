@@ -109,3 +109,16 @@ aws cloudformation deploy --template-file \
     --parameter-overrides ApiGateway="${apiGatewayApiRef}" \
      StageName="${ENV}" DeploymentId="${deploymentId}" DomainName="${DNSNAME}" \
      PostUsersVersion="${LAMBDAVERSION_1}" DomainName="${DNSNAME}"
+##
+# Deploy to stage
+##
+ENV="stage"
+
+echo "about to deploy environment with variables ${apiGatewayApiRef} ${ENV} ${deploymentId} ${LAMBDAVERSION_1} ${DNSNAME}"
+
+aws cloudformation deploy --template-file \
+    formation_env_output.yaml --capabilities CAPABILITY_IAM \
+    --stack-name "${API_NAME}-${ENV}" \
+    --parameter-overrides ApiGateway="${apiGatewayApiRef}" \
+     StageName="${ENV}" DeploymentId="${deploymentId}" DomainName="${DNSNAME}" \
+     PostUsersVersion="${LAMBDAVERSION_1}" DomainName="${DNSNAME}"
