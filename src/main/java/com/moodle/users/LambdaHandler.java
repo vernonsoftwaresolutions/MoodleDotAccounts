@@ -30,7 +30,7 @@ import java.util.Optional;
 public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyResponse> {
 
     private static final String PROFILE_KEY = "profile";
-    private SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
+    private static SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
     private Logger log = LoggerFactory.getLogger(LambdaHandler.class);
     private EnvironmentHelper helper;
 

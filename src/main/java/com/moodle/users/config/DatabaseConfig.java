@@ -76,7 +76,7 @@ public class DatabaseConfig {
 
         String tableName = table + "_" + profileManager.getActiveProfile();
         log.debug("Created tablename {}", tableName);
-
+        //dynamically set dynamodb table name
         return DynamoDBMapperConfig
                 .builder()
                 .withTableNameResolver((clazz, config) -> {
