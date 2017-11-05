@@ -78,18 +78,6 @@ Resources:
         -
           AttributeName: "id"
           AttributeType: "S"
-        -
-          AttributeName: "firstName"
-          AttributeType: "S"
-        -
-          AttributeName: "lastName"
-          AttributeType: "S"
-        -
-          AttributeName: "email"
-          AttributeType: "S"
-        -
-          AttributeName: "phoneNumber"
-          AttributeType: "S"
       KeySchema:
         -
           AttributeName: "id"
