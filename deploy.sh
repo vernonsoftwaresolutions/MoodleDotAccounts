@@ -108,6 +108,4 @@ aws cloudformation deploy --template-file \
     --stack-name "${API_NAME}-${ENV}" \
     --parameter-overrides ApiGateway="${apiGatewayApiRef}" \
      StageName="${ENV}" DeploymentId="${deploymentId}" DomainName="${DNSNAME}" \
-     PostUsersVersion="${LAMBDAVERSION_1}" DomainName="${DNSNAME}"|| exit 0
-
-
+     PostUsersVersion="${LAMBDAVERSION_1}" DomainName="${DNSNAME}"
