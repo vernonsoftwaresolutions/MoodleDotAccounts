@@ -22,7 +22,7 @@ echo "Deploying assets"
 # Deploy Assets
 ##
 aws cloudformation deploy --template-file \
-    formation_assets_output.yaml --capabilities CAPABILITY_IAM \
+    lambda_api_output.yaml --capabilities CAPABILITY_IAM \
     --stack-name ${API_NAME}  --parameter-overrides \
     DNSName=${DNSNAME} HostedZoneName=${HOSTEDZONENAME} TableBaseName=${DYNAMO_TABLE} Stage=${ENV}
 
