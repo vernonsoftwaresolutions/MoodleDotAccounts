@@ -64,10 +64,8 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
         log.debug("About to get stage");
         Optional<String> stage = helper.getStageName(awsProxyRequest);
         //if the stage exists, then strip the pre-fix and set the active profile
-        if(stage.isPresent()){
-            log.info("Request received for stage {} stripping base path", stage.get());
-            handler.stripBasePath(stage.get());
-            //set environment variable
+        if(stage.isPresent()) {
+
             System.setProperty(PROFILE_KEY, stage.get());
         }
         //then process as usual
@@ -82,7 +80,12 @@ public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyRe
                 return null;
             }
         }
+        if (stage.isPresent()) {
 
+            log.info("Request received for stage {} stripping base path", stage.get());
+            handler.stripBasePath(stage.get());
+        }
+        //set environment variable
         return handler.proxy(awsProxyRequest, context);
     }
 
