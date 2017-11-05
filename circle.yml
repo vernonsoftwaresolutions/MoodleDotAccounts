@@ -12,7 +12,7 @@ dependencies:
 test:
   override:
     - mvn package
-    - aws cloudformation validate-template --template-body file://lambda_api.yaml
+    - aws cloudformation validate-template --template-body file://lambda_api.yml
 
 deployment:
   development:
