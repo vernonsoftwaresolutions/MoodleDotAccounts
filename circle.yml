@@ -19,10 +19,12 @@ deployment:
     branch: master
     commands:
     ## create deployment for dev
-    - sh ./deploy_environment.sh lambda.bucket.moodle dev users.vssdevelopment.com vssdevelopment.com. MoodleDotUsers-dev UsersTable
+    - sh ./deploy_environment.sh lambda.bucket.moodle dev users.vssdevelopment.com vssdevelopment.com. MoodleDotUsers-dev UsersTable:
+        timeout: 2400
     ## run dev integration tests
     - sh ./run_postman_tests.sh dev
     ## deploy to stage
-    - sh ./deploy_environment.sh lambda.bucket.moodle stage users.vssdevelopment.com vssdevelopment.com. MoodleDotUsers-stage UsersTable
+    - sh ./deploy_environment.sh lambda.bucket.moodle stage users.vssdevelopment.com vssdevelopment.com. MoodleDotUsers-stage UsersTable:
+        timeout: 2400
     ## run stage integration tests
     - sh ./run_postman_tests.sh stage
