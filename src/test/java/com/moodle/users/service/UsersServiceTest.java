@@ -34,5 +34,10 @@ public class UsersServiceTest {
         given(usersRepository.save(anyObject())).willReturn(user);
         assertEquals(service.save(userDTO),user) ;
     }
+    @Test
+    public void saveCompanyName() throws Exception {
+        given(usersRepository.save(anyObject())).willReturn(user);
 
+        assertEquals(service.save(userDTO),user) ;
+    }
 }

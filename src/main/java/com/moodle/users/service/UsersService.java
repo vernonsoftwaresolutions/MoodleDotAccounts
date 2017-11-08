@@ -39,6 +39,7 @@ public class UsersService {
         user.setLastName(userDTO.getFirstName());
         user.setEmail(userDTO.getEmail());
         user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setCompanyName(userDTO.getCompanyName());
         return user;
     }
 
