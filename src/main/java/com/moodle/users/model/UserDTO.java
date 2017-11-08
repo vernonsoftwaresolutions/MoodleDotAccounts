@@ -8,6 +8,7 @@ public class UserDTO {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private String companyName;
 
     public String getFirstName() {
         return firstName;
@@ -41,6 +42,15 @@ public class UserDTO {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -48,6 +58,7 @@ public class UserDTO {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", companyName='" + companyName + '\'' +
                 '}';
     }
 }

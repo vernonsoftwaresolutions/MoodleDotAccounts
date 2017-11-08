@@ -5,6 +5,9 @@
 	"order": [
 		"b32f31df-b92d-fefe-3c46-44c72dcda4b8",
 		"2577298e-71b9-03ff-c732-eea3474a16ed",
+		"8674d92b-0513-0538-c921-f42c3377469e",
+		"15304fc3-e44a-141c-8269-9142fa5515c4",
+		"4e6ceb81-ff19-1380-1d3f-f6ab346932df",
 		"d898d6d5-d7d6-398c-d143-b1ef51b48bc6"
 	],
 	"folders": [],
@@ -14,7 +17,7 @@
 	"public": false,
 	"requests": [
 		{
-			"id": "2577298e-71b9-03ff-c732-eea3474a16ed",
+			"id": "15304fc3-e44a-141c-8269-9142fa5515c4",
 			"headers": "Content-Type: application/json\n",
 			"headerData": [
 				{
@@ -33,15 +36,105 @@
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
+			"tests": "tests[\"Status code is 422\"] = responseCode.code === 422;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1510115250493,
+			"name": "No lastName 422",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"rawModeData": "{\n\t\"firstName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"client\"\n\t\n}\n"
+		},
+		{
+			"id": "2577298e-71b9-03ff-c732-eea3474a16ed",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/v1/users",
+			"queryParams": [],
+			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\n",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1509922376888,
+			"time": 1510115130306,
 			"name": "Cold Start",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
-			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"email\",\n\t\"phoneNumber\": \"1234123234\"\n\t\n}\n"
+			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
+		},
+		{
+			"id": "4e6ceb81-ff19-1380-1d3f-f6ab346932df",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/v1/users",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 422\"] = responseCode.code === 422;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1510115239550,
+			"name": "No companyName 422",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"rawModeData": "{\n\t\"firstName\": \"Larsen\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\"\n}\n"
+		},
+		{
+			"id": "8674d92b-0513-0538-c921-f42c3377469e",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/v1/users",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 422\"] = responseCode.code === 422;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1510115191231,
+			"name": "No firstName 422",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"rawModeData": "{\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"client\"\n\t\n}\n"
 		},
 		{
 			"id": "b32f31df-b92d-fefe-3c46-44c72dcda4b8",
@@ -66,12 +159,12 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1509922373467,
+			"time": 1510115135986,
 			"name": "Cold Start",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
-			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"email\",\n\t\"phoneNumber\": \"1234123234\"\n\t\n}\n"
+			"rawModeData": "{\n\t\n}\n"
 		},
 		{
 			"id": "d898d6d5-d7d6-398c-d143-b1ef51b48bc6",
@@ -86,22 +179,22 @@
 			],
 			"url": "{{URL}}/v1/users",
 			"queryParams": [],
-			"preRequestScript": null,
+			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\n",
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
+			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;\ntests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;\ntests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;\ntests[\"email not null\"] = jsonData.email !== null && jsonData.email !== undefined;\ntests[\"phoneNumber not null\"] = jsonData.phoneNumber !== null && jsonData.phoneNumber !== undefined;\ntests[\"companyName not null\"] = jsonData.companyName !== null && jsonData.companyName !== undefined;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1509922379592,
+			"time": 1510115105427,
 			"name": "Post Moodle Users",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
-			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\"\n\t\n}\n"
+			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
 		}
 	]
 }

@@ -17,6 +17,7 @@ public class User {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private String companyName;
 
     public String getId() {
         return id;
@@ -58,6 +59,14 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -66,6 +75,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", companyName='" + companyName + '\'' +
                 '}';
     }
 }

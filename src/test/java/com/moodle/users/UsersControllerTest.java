@@ -38,6 +38,7 @@ public class UsersControllerTest {
         user.setFirstName("FIRSTNAME");
         user.setLastName("LASTNAME");
         user.setPhoneNumber("PHONENUMBER");
+        user.setCompanyName("COMPANYNAME");
         usersController = new UsersController(service);
         response = new User();
 
@@ -59,6 +60,13 @@ public class UsersControllerTest {
 
     }
 
+    @Test
+    public void createUserNoCompanyName() throws Exception {
+        user.setCompanyName(null);
+        ResponseEntity response = usersController.createUser(this.user);
+        assertThat(response.getStatusCode(), is(HttpStatus.UNPROCESSABLE_ENTITY));
+
+    }
     @Test
     public void createUserNoFirstName422() throws Exception {
         user.setFirstName(null);

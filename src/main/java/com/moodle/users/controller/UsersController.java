@@ -59,7 +59,7 @@ public class UsersController {
             log.debug("Received request {}", user);
 
             //check to ensure first and last name exist
-            if (user.getFirstName() == null || user.getLastName() == null) {
+            if (user.getFirstName() == null || user.getLastName() == null || user.getCompanyName() == null) {
 
                 //if either don't exist send unprocessable entity request
                 log.warn("First or Last name missing form request, returning 4XX error");
