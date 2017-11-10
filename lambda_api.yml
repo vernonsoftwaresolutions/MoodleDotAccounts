@@ -167,6 +167,7 @@ Resources:
         Variables:
           TABLE_NAME: !Sub ${TableBaseName}_${Stage}
           ENVIRONMENT: !Ref Stage
+          POST_TENANT_URL: !Sub https://api.vssdevelopment.com/${Stage}/moodle/tenants
       Role: !GetAtt LambdaRole.Arn
       Events:
         PostResource:
