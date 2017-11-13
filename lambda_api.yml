@@ -157,7 +157,7 @@ Resources:
   PostUsersHandler:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: com.moodle.accountnt.LambdaHandler
+      Handler: com.moodle.account.LambdaHandler
       FunctionName: !Sub PostUsersHandler_${Stage}
       MemorySize: 1024
       Runtime: java8
