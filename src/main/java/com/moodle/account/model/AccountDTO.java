@@ -53,7 +53,7 @@ public class AccountDTO {
 
     @Override
     public String toString() {
-        return "UserDTO{" +
+        return "accountDTO{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

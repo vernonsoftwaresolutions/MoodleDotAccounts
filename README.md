@@ -1,5 +1,5 @@
 # Serverless Spring example
-A basic Users RESTful API written with the [Spring framework](https://projects.spring.io/spring-framework/). The `LambdaHandler` object is the main entry point for Lambda.
+A basic Accounts RESTful API written with the [Spring framework](https://projects.spring.io/spring-framework/). The `LambdaHandler` object is the main entry point for Lambda.
 
 The application uses the [Serverless Application Model](https://github.com/awslabs/serverless-application-model) for deployment. 
 
@@ -14,4 +14,4 @@ Use maven to build a deployable jar.
 $ mvn package
 ```
 
-This command should generate a `moodle-users-1.0.jar` in the `target` folder. This is then referenced in the cloudformation template to  
+This command should generate a `moodle-accounts-1.0.jar` in the `target` folder. This is then referenced in the cloudformation template to  

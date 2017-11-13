@@ -1,6 +1,6 @@
 {
 	"id": "56b7dd09-f629-255c-c341-a1bd3f008a36",
-	"name": "Moodle_Users",
+	"name": "Moodle_accounts",
 	"description": "",
 	"order": [
 		"b32f31df-b92d-fefe-3c46-44c72dcda4b8",
@@ -27,7 +27,7 @@
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/v1/users",
+			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -41,7 +41,7 @@
 			"helperAttributes": {},
 			"time": 1510115250493,
 			"name": "No lastName 422",
-			"description": "Moodle Users Resources",
+			"description": "Moodle accounts Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
 			"rawModeData": "{\n\t\"firstName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"client\"\n\t\n}\n"
@@ -57,7 +57,7 @@
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/v1/users",
+			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
 			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\n",
 			"pathVariables": {},
@@ -71,7 +71,7 @@
 			"helperAttributes": {},
 			"time": 1510115130306,
 			"name": "Cold Start",
-			"description": "Moodle Users Resources",
+			"description": "Moodle accounts Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
 			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
@@ -87,7 +87,7 @@
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/v1/users",
+			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -101,7 +101,7 @@
 			"helperAttributes": {},
 			"time": 1510115239550,
 			"name": "No companyName 422",
-			"description": "Moodle Users Resources",
+			"description": "Moodle accounts Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
 			"rawModeData": "{\n\t\"firstName\": \"Larsen\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\"\n}\n"
@@ -117,7 +117,7 @@
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/v1/users",
+			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -131,7 +131,7 @@
 			"helperAttributes": {},
 			"time": 1510115191231,
 			"name": "No firstName 422",
-			"description": "Moodle Users Resources",
+			"description": "Moodle accounts Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
 			"rawModeData": "{\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"client\"\n\t\n}\n"
@@ -147,7 +147,7 @@
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/v1/users",
+			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -161,7 +161,7 @@
 			"helperAttributes": {},
 			"time": 1510115135986,
 			"name": "Cold Start",
-			"description": "Moodle Users Resources",
+			"description": "Moodle accounts Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
 			"rawModeData": "{\n\t\n}\n"
@@ -177,7 +177,7 @@
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/v1/users",
+			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
 			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\n",
 			"pathVariables": {},
@@ -190,8 +190,8 @@
 			"currentHelper": "normal",
 			"helperAttributes": {},
 			"time": 1510115105427,
-			"name": "Post Moodle Users",
-			"description": "Moodle Users Resources",
+			"name": "Post Moodle accounts",
+			"description": "Moodle accounts Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
 			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"

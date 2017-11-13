@@ -44,18 +44,18 @@ public class AccountController {
     }
 
     @RequestMapping(path = "/v1/account", method = RequestMethod.POST)
-    public ResponseEntity createUser(@RequestBody AccountDTO user) {
+    public ResponseEntity createAccount(@RequestBody AccountDTO account) {
         try {
-            if(user == null){
+            if(account == null){
                 //if either don't exist send unprocessable entity request
-                log.warn("Null user, returning error");
+                log.warn("Null account, returning error");
 
                 return new ResponseEntity(new Error(ERROR), getCorsHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
             }
-            log.debug("Received request {}", user);
+            log.debug("Received request {}", account);
 
             //check to ensure first and last name exist
-            if (user.getFirstName() == null || user.getLastName() == null || user.getCompanyName() == null) {
+            if (account.getFirstName() == null || account.getLastName() == null || account.getCompanyName() == null) {
 
                 //if either don't exist send unprocessable entity request
                 log.warn("First or Last name missing form request, returning 4XX error");
@@ -63,10 +63,10 @@ public class AccountController {
                 return new ResponseEntity(new Error(ERROR), getCorsHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
             }
 
-            //Save user
-            Account savedAccount = accountsService.save(user);
+            //Save account
+            Account savedAccount = accountsService.save(account);
 
-            log.info("New User created {} returning", savedAccount);
+            log.info("New account created {} returning", savedAccount);
             //return success
             return new ResponseEntity(savedAccount, getCorsHeaders(), HttpStatus.CREATED);
         }
