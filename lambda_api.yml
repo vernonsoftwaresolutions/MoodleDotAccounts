@@ -27,7 +27,7 @@ Parameters:
 
 Resources:
 
-  Certificate:
+  AccountsCertificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName: !Sub ${Stage}.${DNSName}
@@ -35,7 +35,7 @@ Resources:
   DomainName:
     Type: AWS::ApiGateway::DomainName
     Properties:
-      CertificateArn: !Ref Certificate
+      CertificateArn: !Ref AccountsCertificate
       DomainName: !Sub ${Stage}.${DNSName}
 
   LambdaDNS:
@@ -66,7 +66,7 @@ Resources:
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
-                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostaccountsHandler.Arn}/invocations
+                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostAccountsHandler.Arn}/invocations
               responses: {}
             options:
               consumes:
@@ -154,11 +154,11 @@ Resources:
             Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${accountsTable}/*
 
   # Application assets
-  PostaccountsHandler:
+  PostAccountsHandler:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.moodle.account.LambdaHandler
-      FunctionName: !Sub PostaccountsHandler_${Stage}
+      FunctionName: !Sub PostAccountsHandler_${Stage}
       MemorySize: 1024
       Runtime: java8
       CodeUri: target/moodle-accounts-1.0.jar
@@ -177,11 +177,11 @@ Resources:
             Path: /v1/account
             Method: post
 
-  PostaccountsHandlerVersion:
+  PostAccountsHandlerVersion:
     Type: AWS::Lambda::Version
     Properties:
       FunctionName:
-        Ref: PostaccountsHandler
+        Ref: PostAccountsHandler
       Description: Most recent published version
 
 #############################################
@@ -218,27 +218,6 @@ Resources:
       RestApiId: !Ref APIGateway
       Stage: !Ref Stage
 
-  ## Invoke Permissions
-#  LambdaFunctionInvokePermission:
-#    Type: AWS::Lambda::Permission
-##    DependsOn:
-##      - LambdaFunctionAlias
-#    Properties:
-#      Action: lambda:InvokeFunction
-#      Principal: apigateway.amazonaws.com
-#      #todo-can this be not imported?
-#      FunctionName: !Join [":", [ !ImportValue PostaccountsHandlerArn, !Ref StageName]]
-#      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGateway}/*
-#
-#  # Moodle Tenant alias
-#  LambdaFunctionAlias:
-#    Type: AWS::Lambda::Alias
-#    Properties:
-#      #todo-can this be not imported?
-#      FunctionName: !ImportValue PostaccountsHandlerArn
-#      FunctionVersion: !Ref PostaccountsVersion
-#      Name: !Ref StageName
-
   accountsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -260,25 +239,29 @@ Resources:
             -
               AttributeName: "email"
               KeyType: "HASH"
+          Projection:
+            NonKeyAttributes:
+              - "email"
+            ProjectionType: "INCLUDE"
       ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
       TableName: !Sub ${TableBaseName}_${Stage}
 
 
-#Outputs:
-#  Certificate:
-#    Value: !Ref Certificate
-#
-#  accountsApiGatewayRef:
-#    Value: !Ref APIGateway
-#
-#  PostaccountsHandlerArn:
-#    Value: !GetAtt PostaccountsHandler.Arn
-#    Export:
-#      Name: PostaccountsHandlerArn
-#
-#  PostaccountsHandlerVersion:
-#    Value: !GetAtt PostaccountsHandlerVersion.Version
-#    Export:
-#      Name: PostaccountsHandlerVersion
+Outputs:
+  AccountsCertificate:
+    Value: !Ref AccountsCertificate
+
+  accountsApiGatewayRef:
+    Value: !Ref APIGateway
+
+  PostAccountsHandlerArn:
+    Value: !GetAtt PostAccountsHandler.Arn
+    Export:
+      Name: PostAccountsHandlerArn
+
+  PostAccountsHandlerVersion:
+    Value: !GetAtt PostAccountsHandlerVersion.Version
+    Export:
+      Name: PostAccountsHandlerVersion
