@@ -247,21 +247,19 @@ Resources:
           AttributeName: "id"
           AttributeType: "S"
         -
-          AttributeName: ""
+          AttributeName: "email"
+          AttributeType: "S"
       KeySchema:
         -
           AttributeName: "id"
           KeyType: "HASH"
       LocalSecondaryIndexes:
         -
-          IndexName: "myLSI"
+          IndexName: "emailLSI"
           KeySchema:
             -
-              AttributeName: "Album"
+              AttributeName: "email"
               KeyType: "HASH"
-            -
-              AttributeName: "Sales"
-              KeyType: "RANGE"
       ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
