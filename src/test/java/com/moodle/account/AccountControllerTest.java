@@ -26,112 +26,112 @@ public class AccountControllerTest {
 
     @Mock
     private AccountsService service;
-    private AccountDTO user;
+    private AccountDTO account;
     private AccountController accountController;
     private Account response;
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
 
-        user = new AccountDTO();
-        user.setEmail("EMAIL");
-        user.setFirstName("FIRSTNAME");
-        user.setLastName("LASTNAME");
-        user.setPhoneNumber("PHONENUMBER");
-        user.setCompanyName("COMPANYNAME");
+        account = new AccountDTO();
+        account.setEmail("EMAIL");
+        account.setFirstName("FIRSTNAME");
+        account.setLastName("LASTNAME");
+        account.setPhoneNumber("PHONENUMBER");
+        account.setCompanyName("COMPANYNAME");
         accountController = new AccountController(service);
         response = new Account();
 
     }
     @Test
-    public void createUser201() throws Exception {
-        given(service.save(user)).willReturn(response);
-        ResponseEntity response = accountController.createUser(this.user);
+    public void createAccount201() throws Exception {
+        given(service.save(account)).willReturn(response);
+        ResponseEntity response = accountController.createAccount(this.account);
         assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
 
     }
 
     @Test
-    public void createUserIdPopulated() throws Exception {
-        given(service.save(user)).willReturn(response);
-        ResponseEntity response = accountController.createUser(this.user);
+    public void createAccountIdPopulated() throws Exception {
+        given(service.save(account)).willReturn(response);
+        ResponseEntity response = accountController.createAccount(this.account);
         Account responseAccount = (Account) response.getBody();
         assertThat(responseAccount,is(responseAccount));
 
     }
 
     @Test
-    public void createUserNoCompanyName() throws Exception {
-        user.setCompanyName(null);
-        ResponseEntity response = accountController.createUser(this.user);
+    public void createAccountNoCompanyName() throws Exception {
+        account.setCompanyName(null);
+        ResponseEntity response = accountController.createAccount(this.account);
         assertThat(response.getStatusCode(), is(HttpStatus.UNPROCESSABLE_ENTITY));
 
     }
     @Test
-    public void createUserNoFirstName422() throws Exception {
-        user.setFirstName(null);
-        ResponseEntity response = accountController.createUser(this.user);
+    public void createAccountNoFirstName422() throws Exception {
+        account.setFirstName(null);
+        ResponseEntity response = accountController.createAccount(this.account);
         assertThat(response.getStatusCode(), is(HttpStatus.UNPROCESSABLE_ENTITY));
 
     }
     @Test
-    public void createUserNoLastName422() throws Exception {
-        user.setLastName(null);
-        ResponseEntity response = accountController.createUser(this.user);
+    public void createAccountNoLastName422() throws Exception {
+        account.setLastName(null);
+        ResponseEntity response = accountController.createAccount(this.account);
         assertThat(response.getStatusCode(), is(HttpStatus.UNPROCESSABLE_ENTITY));
 
     }
     @Test
-    public void createUserNoLastNameMessage() throws Exception {
-        user.setLastName(null);
-        ResponseEntity<Error> response = accountController.createUser(this.user);
+    public void createAccountNoLastNameMessage() throws Exception {
+        account.setLastName(null);
+        ResponseEntity<Error> response = accountController.createAccount(this.account);
         assertThat(response.getBody().getMessage(), is("Missing Required Fields"));
 
     }
     @Test
-    public void createUserNulluser() throws Exception {
-        ResponseEntity<Error> response = accountController.createUser(null);
+    public void createAccountNullaccount() throws Exception {
+        ResponseEntity<Error> response = accountController.createAccount(null);
         assertThat(response.getBody().getMessage(), is("Missing Required Fields"));
 
     }
     @Test
-    public void createUserNoFirstNameMessage() throws Exception {
-        user.setFirstName(null);
-        ResponseEntity<Error> response = accountController.createUser(this.user);
+    public void createAccountNoFirstNameMessage() throws Exception {
+        account.setFirstName(null);
+        ResponseEntity<Error> response = accountController.createAccount(this.account);
         assertThat(response.getBody().getMessage(), is("Missing Required Fields"));
 
     }
     @Test
-    public void createUserHeadersExist() throws Exception {
-        user.setFirstName(null);
-        ResponseEntity<Error> response = accountController.createUser(this.user);
+    public void createAccountHeadersExist() throws Exception {
+        account.setFirstName(null);
+        ResponseEntity<Error> response = accountController.createAccount(this.account);
         assertThat(response.getHeaders().size(), is(1));
 
     }
     @Test
-    public void createUserHeaders() throws Exception {
-        given(service.save(user)).willReturn(response);
-        ResponseEntity response = accountController.createUser(this.user);
+    public void createAccountHeaders() throws Exception {
+        given(service.save(account)).willReturn(response);
+        ResponseEntity response = accountController.createAccount(this.account);
         assertThat(response.getHeaders().size(), is(1));
 
     }
     @Test
-    public void createUser422HeadersExistString() throws Exception {
-        user.setFirstName(null);
-        ResponseEntity<Error> response = accountController.createUser(this.user);
+    public void createAccount422HeadersExistString() throws Exception {
+        account.setFirstName(null);
+        ResponseEntity<Error> response = accountController.createAccount(this.account);
         assertThat(response.getHeaders().get("Access-Control-Allow-Origin").get(0), is("*"));
 
     }
     @Test
-    public void createUser202HeadersExistString() throws Exception {
-        ResponseEntity response = accountController.createUser(this.user);
+    public void createAccount202HeadersExistString() throws Exception {
+        ResponseEntity response = accountController.createAccount(this.account);
         assertThat(response.getHeaders().get("Access-Control-Allow-Origin").get(0), is("*"));
 
     }
     @Test
-    public void createUser500() throws Exception {
-        given(service.save(user)).willThrow(new RuntimeException());
-        ResponseEntity<Error> response = accountController.createUser(this.user);
+    public void createAccount500() throws Exception {
+        given(service.save(account)).willThrow(new RuntimeException());
+        ResponseEntity<Error> response = accountController.createAccount(this.account);
         assertThat(response.getBody().getMessage(), is(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()));
 
     }

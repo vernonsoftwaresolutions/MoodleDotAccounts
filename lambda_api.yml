@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
-Description: Model Users Api Assets
+Description: Model accounts Api Assets
 
 Parameters:
 
@@ -61,12 +61,12 @@ Resources:
         info:
           title: !Ref AWS::StackName
         paths:
-          "/v1/users":
+          "/v1/accounts":
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
-                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostUsersHandler.Arn}/invocations
+                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostaccountsHandler.Arn}/invocations
               responses: {}
             options:
               consumes:
@@ -151,17 +151,17 @@ Resources:
             - "dynamodb:PutItem"
             - "dynamodb:Scan"
             - "dynamodb:UpdateItem"
-            Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersTable}/*
+            Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${accountsTable}/*
 
   # Application assets
-  PostUsersHandler:
+  PostaccountsHandler:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.moodle.account.LambdaHandler
-      FunctionName: !Sub PostUsersHandler_${Stage}
+      FunctionName: !Sub PostaccountsHandler_${Stage}
       MemorySize: 1024
       Runtime: java8
-      CodeUri: target/moodle-account-1.0.jar
+      CodeUri: target/moodle-accounts-1.0.jar
       Timeout: 15
       Environment:
         Variables:
@@ -177,11 +177,11 @@ Resources:
             Path: /v1/account
             Method: post
 
-  PostUsersHandlerVersion:
+  PostaccountsHandlerVersion:
     Type: AWS::Lambda::Version
     Properties:
       FunctionName:
-        Ref: PostUsersHandler
+        Ref: PostaccountsHandler
       Description: Most recent published version
 
 #############################################
@@ -227,7 +227,7 @@ Resources:
 #      Action: lambda:InvokeFunction
 #      Principal: apigateway.amazonaws.com
 #      #todo-can this be not imported?
-#      FunctionName: !Join [":", [ !ImportValue PostUsersHandlerArn, !Ref StageName]]
+#      FunctionName: !Join [":", [ !ImportValue PostaccountsHandlerArn, !Ref StageName]]
 #      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGateway}/*
 #
 #  # Moodle Tenant alias
@@ -235,21 +235,33 @@ Resources:
 #    Type: AWS::Lambda::Alias
 #    Properties:
 #      #todo-can this be not imported?
-#      FunctionName: !ImportValue PostUsersHandlerArn
-#      FunctionVersion: !Ref PostUsersVersion
+#      FunctionName: !ImportValue PostaccountsHandlerArn
+#      FunctionVersion: !Ref PostaccountsVersion
 #      Name: !Ref StageName
 
-  UsersTable:
+  accountsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
         -
           AttributeName: "id"
           AttributeType: "S"
+        -
+          AttributeName: ""
       KeySchema:
         -
           AttributeName: "id"
           KeyType: "HASH"
+      LocalSecondaryIndexes:
+        -
+          IndexName: "myLSI"
+          KeySchema:
+            -
+              AttributeName: "Album"
+              KeyType: "HASH"
+            -
+              AttributeName: "Sales"
+              KeyType: "RANGE"
       ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
@@ -260,15 +272,15 @@ Resources:
 #  Certificate:
 #    Value: !Ref Certificate
 #
-#  UsersApiGatewayRef:
+#  accountsApiGatewayRef:
 #    Value: !Ref APIGateway
 #
-#  PostUsersHandlerArn:
-#    Value: !GetAtt PostUsersHandler.Arn
+#  PostaccountsHandlerArn:
+#    Value: !GetAtt PostaccountsHandler.Arn
 #    Export:
-#      Name: PostUsersHandlerArn
+#      Name: PostaccountsHandlerArn
 #
-#  PostUsersHandlerVersion:
-#    Value: !GetAtt PostUsersHandlerVersion.Version
+#  PostaccountsHandlerVersion:
+#    Value: !GetAtt PostaccountsHandlerVersion.Version
 #    Export:
-#      Name: PostUsersHandlerVersion
+#      Name: PostaccountsHandlerVersion
