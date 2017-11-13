@@ -232,6 +232,9 @@ Resources:
         -
           AttributeName: "id"
           KeyType: "HASH"
+        -
+          AttributeName: "email"
+          KeyType: "RANGE"
       LocalSecondaryIndexes:
         -
           IndexName: "emailLSI"
