@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.moodle.users</groupId>
-    <artifactId>moodle-users</artifactId>
+    <groupId>com.moodle.accounts</groupId>
+    <artifactId>moodle-accounts</artifactId>
     <version>1.0</version>
-    <name>Moodle Dot Com users</name>
-    <description>RESTful resources for Moodle Dot Com Users</description>
-    <url>https://github.com/vernonsoftwaresolutions/MoodleDotUsers</url>
+    <name>Moodle Dot Com accounts</name>
+    <description>RESTful resources for Moodle Dot Com accounts</description>
+    <url>https://github.com/vernonsoftwaresolutions/MoodleDotaccounts</url>
 
     <scm>
-        <url>https://github.com/vernonsoftwaresolutions/MoodleDotUsers.git</url>
+        <url>https://github.com/vernonsoftwaresolutions/MoodleDotaccounts.git</url>
     </scm>
 
     <properties>
