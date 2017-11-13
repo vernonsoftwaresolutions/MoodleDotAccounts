@@ -157,11 +157,11 @@ Resources:
   PostUsersHandler:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: com.moodle.users.LambdaHandler
+      Handler: com.moodle.accountnt.LambdaHandler
       FunctionName: !Sub PostUsersHandler_${Stage}
       MemorySize: 1024
       Runtime: java8
-      CodeUri: target/moodle-users-1.0.jar
+      CodeUri: target/moodle-account-1.0.jar
       Timeout: 15
       Environment:
         Variables:
@@ -174,7 +174,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref APIGateway
-            Path: /v1/users
+            Path: /v1/account
             Method: post
 
   PostUsersHandlerVersion:
