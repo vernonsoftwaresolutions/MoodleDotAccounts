@@ -235,17 +235,6 @@ Resources:
         -
           AttributeName: "email"
           KeyType: "RANGE"
-      LocalSecondaryIndexes:
-        -
-          IndexName: "emailLSI"
-          KeySchema:
-            -
-              AttributeName: "email"
-              KeyType: "HASH"
-          Projection:
-            NonKeyAttributes:
-              - "email"
-            ProjectionType: "INCLUDE"
       ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
