@@ -23,11 +23,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @EnableWebMvc
@@ -43,7 +44,7 @@ public class AccountController {
         this.accountsService = accountsService;
     }
 
-    @RequestMapping(path = "/v1/account", method = RequestMethod.POST)
+    @RequestMapping(path = "/v1/accounts", method = RequestMethod.POST)
     public ResponseEntity createAccount(@RequestBody AccountDTO account) {
         try {
             if(account == null){
@@ -77,6 +78,30 @@ public class AccountController {
                     getCorsHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
+    }
+    @RequestMapping(path = "/v1/accounts", method = RequestMethod.GET)
+    public ResponseEntity getAccountsByEmail(@RequestParam("email") Optional<String> email) {
+        try {
+            List<Account> accounts = new ArrayList<>();
+            log.debug("Request received for email {} ", email);
+            //if email not present return error
+            if (!email.isPresent()) {
+                log.debug("email not present, returning error");
+                return new ResponseEntity(new Error(ERROR), getCorsHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+
+            }
+            //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
+            accounts = accountsService.getAccounts(email.get());
+            log.info("Fetched accounts {} ", accounts);
+            //return
+            return new ResponseEntity(accounts, getCorsHeaders(), HttpStatus.OK);
+        }
+        catch (Exception e){
+            log.error("Error processing request ", e);
+            return new ResponseEntity(new Error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()),
+                    getCorsHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     /**

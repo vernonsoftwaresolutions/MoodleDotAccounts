@@ -230,10 +230,10 @@ Resources:
           AttributeType: "S"
       KeySchema:
         -
-          AttributeName: "id"
+          AttributeName: "email"
           KeyType: "HASH"
         -
-          AttributeName: "email"
+          AttributeName: "id"
           KeyType: "RANGE"
       ProvisionedThroughput:
           ReadCapacityUnits: 1

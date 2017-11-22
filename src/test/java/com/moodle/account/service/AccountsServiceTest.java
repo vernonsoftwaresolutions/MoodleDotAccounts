@@ -55,4 +55,11 @@ public class AccountsServiceTest {
         given(factory.createRequest(account)).willReturn(request);
         assertEquals(service.save(accountDTO), account) ;
     }
+
+    //getAccounts
+
+    @Test
+    public void getAccountsByEmail() throws Exception {
+        assertNotNull(service.getAccounts("EMAIL"));
+    }
 }

@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 
 /**
  * Created by andrewlarsen on 11/4/17.
@@ -49,6 +52,15 @@ public class AccountsService {
 
         return savedAccount;
 
+    }
+
+    /**
+     * Method to retrieve accounts by email
+     * @param email
+     * @return
+     */
+    public List<Account> getAccounts(String email){
+        return accountsRepository.getAccounts(email);
     }
 
     /**

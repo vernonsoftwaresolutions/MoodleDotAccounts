@@ -1,6 +1,7 @@
 package com.moodle.account.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 /**
@@ -14,6 +15,8 @@ public class Account {
     private String id;
     private String firstName;
     private String lastName;
+    @DynamoDBIndexRangeKey(localSecondaryIndexName = "emailLSI", attributeName = "email")
+
     private String email;
     private String phoneNumber;
     private String companyName;
