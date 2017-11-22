@@ -151,7 +151,7 @@ Resources:
             - "dynamodb:PutItem"
             - "dynamodb:Scan"
             - "dynamodb:UpdateItem"
-            Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${accountsTable}/*
+            Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${AccountsTable}/*
 
   # Application assets
   PostAccountsHandler:
@@ -218,7 +218,7 @@ Resources:
       RestApiId: !Ref APIGateway
       Stage: !Ref Stage
 
-  accountsTable:
+  AccountsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
