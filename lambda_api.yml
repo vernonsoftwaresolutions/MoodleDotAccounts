@@ -316,12 +316,12 @@ Outputs:
   AccountsCertificate:
     Value: !Ref AccountsCertificate
     Export:
-      Name: !Sub AccountsHandlerArn-${Stage}
+      Name: !Sub AccountsCertificate-${Stage}
 
-  accountsApiGatewayRef:
+  AccountsApiGatewayRef:
     Value: !Ref ApiGateway
     Export:
-      Name: !Sub AccountsHandlerArn-${Stage}
+      Name: !Sub AccountsApiGatewayRef-${Stage}
 
   AccountsHandlerArn:
     Value: !GetAtt AccountsHandler.Arn
