@@ -28,3 +28,4 @@ deployment:
         timeout: 2400
     ## run stage integration tests
     - sh ./run_postman_tests.sh stage
+    ## todo- how about prod?
