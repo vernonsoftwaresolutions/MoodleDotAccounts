@@ -86,7 +86,7 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       DefinitionUri: ./accounts-api.yaml
-      StageName: !Ref stage
+      StageName: !Ref Stage
       Variables:
         ServerlessExpressLambdaFunctionName: !Sub AccountsHandler_${Stage}
 
