@@ -68,6 +68,12 @@ Resources:
                 type: aws_proxy
                 uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostAccountsHandler.Arn}/invocations
               responses: {}
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostAccountsHandler.Arn}/invocations
+              responses: {}
             options:
               consumes:
               - application/json
@@ -174,7 +180,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref APIGateway
-            Path: /v1/account
+            Path: /v1/accounts
             Method: post
 
   PostAccountsHandlerVersion:
