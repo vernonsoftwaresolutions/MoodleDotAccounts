@@ -1,10 +1,10 @@
 package com.moodle.account.service;
 
 import com.moodle.account.client.MoodleTenantClient;
-import com.moodle.account.factory.MoodleTenantRequestFactory;
+import com.moodle.account.factory.MoodleSiteRequestFactory;
 import com.moodle.account.model.Account;
 import com.moodle.account.model.AccountDTO;
-import com.moodle.account.model.moodle.MoodleTenantRequest;
+import com.moodle.account.model.moodle.MoodleSiteRequest;
 import com.moodle.account.model.moodle.SQSResponse;
 import com.moodle.account.repository.AccountsRepository;
 import org.junit.Before;
@@ -27,18 +27,18 @@ public class AccountsServiceTest {
     @Mock
     private MoodleTenantClient client;
     @Mock
-    private MoodleTenantRequestFactory factory;
+    private MoodleSiteRequestFactory factory;
 
     private AccountsService service;
     private AccountDTO accountDTO;
     private Account account;
-    private MoodleTenantRequest request;
+    private MoodleSiteRequest request;
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         service = new AccountsService(accountsRepository,client,factory);
         accountDTO = new AccountDTO();
-        request = new MoodleTenantRequest();
+        request = new MoodleSiteRequest();
 
     }
     @Test

@@ -3,7 +3,7 @@ package com.moodle.account.model.moodle;
 /**
  * Created by andrewlarsen on 9/9/17.
  */
-public class MoodleTenantRequest {
+public class MoodleSiteRequest {
     private String id;
     private String stackName;
     private String clientName;

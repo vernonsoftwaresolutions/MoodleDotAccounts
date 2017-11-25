@@ -1,7 +1,7 @@
 package com.moodle.account.service;
 
 import com.moodle.account.client.MoodleTenantClient;
-import com.moodle.account.factory.MoodleTenantRequestFactory;
+import com.moodle.account.factory.MoodleSiteRequestFactory;
 import com.moodle.account.model.Account;
 import com.moodle.account.model.AccountDTO;
 import com.moodle.account.model.moodle.SQSResponse;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 /**
@@ -25,11 +24,11 @@ public class AccountsService {
 
     private AccountsRepository accountsRepository;
     private MoodleTenantClient tenantClient;
-    private MoodleTenantRequestFactory factory;
+    private MoodleSiteRequestFactory factory;
 
 
     @Autowired
-    public AccountsService(AccountsRepository accountsRepository, MoodleTenantClient tenantClient, MoodleTenantRequestFactory factory) {
+    public AccountsService(AccountsRepository accountsRepository, MoodleTenantClient tenantClient, MoodleSiteRequestFactory factory) {
         this.accountsRepository = accountsRepository;
         this.tenantClient = tenantClient;
         this.factory = factory;
@@ -45,10 +44,6 @@ public class AccountsService {
         //first save the account into the account database
         log.info("Saving account to db");
         Account savedAccount = accountsRepository.save(createaccount(account));
-        //next put the message on the queue
-        //todo-need to address error situations
-        SQSResponse response = tenantClient.postMessage(factory.createRequest(savedAccount));
-
         return savedAccount;
 
     }
@@ -70,7 +65,7 @@ public class AccountsService {
     private Account createaccount(AccountDTO accountDTO){
         Account account = new Account();
         account.setFirstName(accountDTO.getFirstName());
-        account.setLastName(accountDTO.getFirstName());
+        account.setLastName(accountDTO.getLastName());
         account.setEmail(accountDTO.getEmail());
         account.setPhoneNumber(accountDTO.getPhoneNumber());
         account.setCompanyName(accountDTO.getCompanyName());

@@ -1,6 +1,6 @@
 package com.moodle.account.client;
 
-import com.moodle.account.model.moodle.MoodleTenantRequest;
+import com.moodle.account.model.moodle.MoodleSiteRequest;
 import com.moodle.account.model.moodle.SQSResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class MoodleTenantClientImpl implements MoodleTenantClient {
     }
 
     @Override
-    public SQSResponse postMessage(MoodleTenantRequest request) {
+    public SQSResponse postMessage(MoodleSiteRequest request) {
         SQSResponse response = restTemplate.postForEntity(url,
                 request, SQSResponse.class).getBody();
         return response;

@@ -1,6 +1,6 @@
 package com.moodle.account.client;
 
-import com.moodle.account.model.moodle.MoodleTenantRequest;
+import com.moodle.account.model.moodle.MoodleSiteRequest;
 import com.moodle.account.model.moodle.SQSResponse;
 
 /**
@@ -14,5 +14,5 @@ public interface MoodleTenantClient {
      * @param request
      * @return
      */
-    SQSResponse postMessage(MoodleTenantRequest request);
+    SQSResponse postMessage(MoodleSiteRequest request);
 }

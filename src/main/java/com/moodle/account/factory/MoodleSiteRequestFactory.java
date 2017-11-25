@@ -1,7 +1,7 @@
 package com.moodle.account.factory;
 
 import com.moodle.account.model.Account;
-import com.moodle.account.model.moodle.MoodleTenantRequest;
+import com.moodle.account.model.moodle.MoodleSiteRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -10,7 +10,7 @@ import java.util.Random;
  * Created by andrewlarsen on 11/10/17.
  */
 @Component
-public class MoodleTenantRequestFactory {
+public class MoodleSiteRequestFactory {
     private static final String STACK_NAME = "moodle-ecs-single";
     private static final String VPC_ID = "vpc-c7aa77be";
     private static final String HOSTED_ZONE = "vssdevelopment.com";
@@ -19,12 +19,12 @@ public class MoodleTenantRequestFactory {
      * @param account
      * @return
      */
-    public MoodleTenantRequest createRequest(Account account){
+    public MoodleSiteRequest createRequest(Account account){
         Random rand = new Random();
 
         int priority = rand.nextInt(100) + 1;
 
-        MoodleTenantRequest request = new MoodleTenantRequest();
+        MoodleSiteRequest request = new MoodleSiteRequest();
         request.setClientName(account.getCompanyName());
         request.setId(account.getId());
         request.setPriority(priority);
