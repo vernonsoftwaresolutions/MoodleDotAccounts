@@ -28,13 +28,12 @@ public class AccountsService {
     private MoodleTenantRequestFactory factory;
 
 
+    @Autowired
     public AccountsService(AccountsRepository accountsRepository, MoodleTenantClient tenantClient, MoodleTenantRequestFactory factory) {
         this.accountsRepository = accountsRepository;
         this.tenantClient = tenantClient;
         this.factory = factory;
     }
-
-    @Autowired
 
 
     /**
