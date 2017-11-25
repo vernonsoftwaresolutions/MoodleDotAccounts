@@ -315,16 +315,20 @@ Resources:
 Outputs:
   AccountsCertificate:
     Value: !Ref AccountsCertificate
+    Export:
+      Name: !Sub AccountsHandlerArn-${Stage}
 
   accountsApiGatewayRef:
     Value: !Ref ApiGateway
+    Export:
+      Name: AccountsHandlerArn-${Stage}
 
   AccountsHandlerArn:
     Value: !GetAtt AccountsHandler.Arn
     Export:
-      Name: AccountsHandlerArn
+      Name: AccountsHandlerArn-${Stage}
 
   AccountsHandlerVersion:
     Value: !GetAtt AccountsHandlerVersion.Version
     Export:
-      Name: AccountsHandlerVersion
+      Name: AccountsHandlerVersion-${Stage}
