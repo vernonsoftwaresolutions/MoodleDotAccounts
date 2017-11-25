@@ -8,15 +8,13 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
  * Created by andrewlarsen on 11/4/17.
  */
 //Default table name that will be overridden at runtime
-@DynamoDBTable(tableName = "BLACKLIST_TABLE_NAME")
+@DynamoDBTable(tableName = "ACCOUNTS_TABLE")
 public class Account {
 
-    @DynamoDBHashKey
     private String id;
     private String firstName;
     private String lastName;
-    @DynamoDBIndexRangeKey(localSecondaryIndexName = "emailLSI", attributeName = "email")
-
+    @DynamoDBHashKey
     private String email;
     private String phoneNumber;
     private String companyName;
