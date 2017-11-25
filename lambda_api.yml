@@ -180,8 +180,8 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref APIGateway
-            Path: /v1/accounts
-            Method: post
+             Path: /{proxy+}
+             Method: any
 
   PostAccountsHandlerVersion:
     Type: AWS::Lambda::Version
