@@ -84,6 +84,7 @@ Resources:
                 Effect: "Allow"
                 Action: "*"
                 Resource: "*"
+
   LambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -132,12 +133,18 @@ Resources:
           POST_TENANT_URL: !Sub https://api.vssdevelopment.com/${Stage}/moodle/tenants
       Role: !GetAtt LambdaRole.Arn
       Events:
-        PostResource:
+        ProxyApiRoot:
           Type: Api
           Properties:
-            RestApiId: !Ref APIGateway
+            RestApiId: !Ref ApiGateway
+            Path: /
+            Method: ANY
+        ProxyApiGreedy:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
             Path: /{proxy+}
-            Method: any
+            Method: ANY
 
   AccountsHandlerVersion:
     Type: AWS::Lambda::Version
@@ -154,14 +161,14 @@ Resources:
 #    Type: AWS::ApiGateway::Deployment
 #    Properties:
 #      Description: !Sub Deployment for ${Stage}
-#      RestApiId: !Ref APIGateway
+#      RestApiId: !Ref ApiGateway
 #      StageName: !Ref Stage
 
 #  ApiGatewayStage:
 #    Type: AWS::ApiGateway::Stage
 #    Properties:
 #      StageName: !Ref Stage
-#      RestApiId: !Ref APIGateway
+#      RestApiId: !Ref ApiGateway
 #      DeploymentId: !Ref Deployment
 #      Variables:
 #        env: !Ref Stage
@@ -177,7 +184,7 @@ Resources:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
       DomainName: !Ref DomainName
-      RestApiId: !Ref APIGateway
+      RestApiId: !Ref ApiGateway
       Stage: !Ref Stage
 
   AccountsTable:
@@ -208,7 +215,7 @@ Outputs:
     Value: !Ref AccountsCertificate
 
   accountsApiGatewayRef:
-    Value: !Ref APIGateway
+    Value: !Ref ApiGateway
 
   AccountsHandlerArn:
     Value: !GetAtt AccountsHandler.Arn
