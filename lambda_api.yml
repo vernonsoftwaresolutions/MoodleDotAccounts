@@ -321,14 +321,14 @@ Outputs:
   accountsApiGatewayRef:
     Value: !Ref ApiGateway
     Export:
-      Name: AccountsHandlerArn-${Stage}
+      Name: !Sub AccountsHandlerArn-${Stage}
 
   AccountsHandlerArn:
     Value: !GetAtt AccountsHandler.Arn
     Export:
-      Name: AccountsHandlerArn-${Stage}
+      Name: !Sub AccountsHandlerArn-${Stage}
 
   AccountsHandlerVersion:
     Value: !GetAtt AccountsHandlerVersion.Version
     Export:
-      Name: AccountsHandlerVersion-${Stage}
+      Name: !Sub AccountsHandlerVersion-${Stage}
