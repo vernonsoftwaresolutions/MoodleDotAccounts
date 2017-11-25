@@ -311,7 +311,7 @@ Resources:
           WriteCapacityUnits: 1
       TableName: !Sub ${TableBaseName}_${Stage}
 
-
+#output
 Outputs:
   AccountsCertificate:
     Value: !Ref AccountsCertificate
