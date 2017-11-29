@@ -244,7 +244,7 @@ Resources:
             - "dynamodb:PutItem"
             - "dynamodb:Scan"
             - "dynamodb:UpdateItem"
-            Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${AccountsTable}/*
+            Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${MoodleAccountsTable}/*
 
 
 
@@ -289,7 +289,7 @@ Resources:
       RestApiId: !Ref ApiGateway
       Stage: !Ref Stage
 
-  AccountsTable:
+  MoodleAccountsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
