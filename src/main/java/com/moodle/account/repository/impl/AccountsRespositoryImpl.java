@@ -36,12 +36,12 @@ public class AccountsRespositoryImpl implements AccountsRepository {
     }
 
     @Override
-    public List<Account> getAccounts(String email) {
+    public Account getAccount(String email) {
         Account account = new Account();
         account.setEmail(email);
         DynamoDBQueryExpression<Account> queryExpression = new DynamoDBQueryExpression<Account>()
                 .withHashKeyValues(account);
-        return dynamoDBMapper.query(Account.class, queryExpression);
+        return dynamoDBMapper.load(Account.class, queryExpression);
 
     }
 }

@@ -10,5 +10,5 @@ import java.util.List;
 public interface AccountsRepository {
 
     Account save(Account account);
-    List<Account> getAccounts(String email);
+    Account getAccount(String email);
 }

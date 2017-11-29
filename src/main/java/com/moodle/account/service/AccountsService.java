@@ -4,14 +4,11 @@ import com.moodle.account.client.MoodleTenantClient;
 import com.moodle.account.factory.MoodleSiteRequestFactory;
 import com.moodle.account.model.Account;
 import com.moodle.account.model.AccountDTO;
-import com.moodle.account.model.moodle.SQSResponse;
 import com.moodle.account.repository.AccountsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 /**
@@ -53,8 +50,8 @@ public class AccountsService {
      * @param email
      * @return
      */
-    public List<Account> getAccounts(String email){
-        return accountsRepository.getAccounts(email);
+    public Account getAccount(String email){
+        return accountsRepository.getAccount(email);
     }
 
     /**

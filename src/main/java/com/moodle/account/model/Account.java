@@ -12,7 +12,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 @DynamoDBTable(tableName = "ACCOUNTS_TABLE")
 public class Account {
 
-    @DynamoDBRangeKey
     private String id;
     private String firstName;
     private String lastName;

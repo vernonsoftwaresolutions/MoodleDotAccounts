@@ -141,52 +141,53 @@ public class AccountControllerTest {
 
     //get by email tests
     @Test
-    public void getAccountsByEmail200() throws Exception {
-        assertEquals(accountController.getAccountsByEmail(email).getStatusCode(), HttpStatus.OK);
+    public void getAccountByEmail200() throws Exception {
+        assertEquals(accountController.getAccountByEmail(email).getStatusCode(), HttpStatus.OK);
 
     }
     @Test
-    public void getAccountsByEmailNotNull() throws Exception {
-        assertNotNull(accountController.getAccountsByEmail(email).getBody());
+    public void getAccountByEmailNotNull() throws Exception {
+        given(service.getAccount(email.get())).willReturn(new Account());
+        assertNotNull(accountController.getAccountByEmail(email).getBody());
 
     }
     @Test
-    public void getAccountsByEmail200Headers() throws Exception {
-        assertThat(accountController.getAccountsByEmail(email).getHeaders().size(), is(1));
+    public void getAccountByEmail200Headers() throws Exception {
+        assertThat(accountController.getAccountByEmail(email).getHeaders().size(), is(1));
     }
     @Test
-    public void getAccountsByEmail422() throws Exception {
-        assertEquals(accountController.getAccountsByEmail(Optional.empty()).getStatusCode(), HttpStatus.UNPROCESSABLE_ENTITY);
+    public void getAccountByEmail422() throws Exception {
+        assertEquals(accountController.getAccountByEmail(Optional.empty()).getStatusCode(), HttpStatus.UNPROCESSABLE_ENTITY);
 
     }
 
     @Test
-    public void getAccountsByEmail422NotNull() throws Exception {
-        assertNotNull(accountController.getAccountsByEmail(Optional.empty()).getBody());
+    public void getAccountByEmail422NotNull() throws Exception {
+        assertNotNull(accountController.getAccountByEmail(Optional.empty()).getBody());
 
     }
     @Test
-    public void getAccountsByEmail422Headers() throws Exception {
-        assertThat(accountController.getAccountsByEmail(Optional.empty()).getHeaders().size(), is(1));
+    public void getAccountByEmail422Headers() throws Exception {
+        assertThat(accountController.getAccountByEmail(Optional.empty()).getHeaders().size(), is(1));
     }
     @Test
-    public void getAccountsByEmail500Message() throws Exception {
-        given(service.getAccounts(email.get())).willThrow(new RuntimeException());
-        ResponseEntity<Error> response = accountController.getAccountsByEmail(email);
+    public void getAccountByEmail500Message() throws Exception {
+        given(service.getAccount(email.get())).willThrow(new RuntimeException());
+        ResponseEntity<Error> response = accountController.getAccountByEmail(email);
         assertThat(response.getBody().getMessage(), is(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()));
 
     }
     @Test
-    public void getAccountsByEmail500Code() throws Exception {
-        given(service.getAccounts(email.get())).willThrow(new RuntimeException());
-        ResponseEntity<Error> response = accountController.getAccountsByEmail(email);
+    public void getAccountByEmail500Code() throws Exception {
+        given(service.getAccount(email.get())).willThrow(new RuntimeException());
+        ResponseEntity<Error> response = accountController.getAccountByEmail(email);
         assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
 
     }
     @Test
-    public void getAccountsByEmail500CodeHeaders() throws Exception {
-        given(service.getAccounts(email.get())).willThrow(new RuntimeException());
-        ResponseEntity<Error> response = accountController.getAccountsByEmail(email);
+    public void getAccountByEmail500CodeHeaders() throws Exception {
+        given(service.getAccount(email.get())).willThrow(new RuntimeException());
+        ResponseEntity<Error> response = accountController.getAccountByEmail(email);
         assertThat(response.getHeaders().size(), is(1));
 
     }

@@ -294,18 +294,12 @@ Resources:
     Properties:
       AttributeDefinitions:
         -
-          AttributeName: "id"
-          AttributeType: "S"
-        -
           AttributeName: "email"
           AttributeType: "S"
       KeySchema:
         -
           AttributeName: "email"
           KeyType: "HASH"
-        -
-          AttributeName: "id"
-          KeyType: "RANGE"
       ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

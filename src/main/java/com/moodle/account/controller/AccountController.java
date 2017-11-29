@@ -80,9 +80,9 @@ public class AccountController {
         }
     }
     @RequestMapping(path = "/v1/accounts", method = RequestMethod.GET)
-    public ResponseEntity getAccountsByEmail(@RequestParam("email") Optional<String> email) {
+    public ResponseEntity getAccountByEmail(@RequestParam("email") Optional<String> email) {
         try {
-            List<Account> accounts = new ArrayList<>();
+
             log.debug("Request received for email {} ", email);
             //if email not present return error
             if (!email.isPresent()) {
@@ -91,10 +91,10 @@ public class AccountController {
 
             }
             //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
-            accounts = accountsService.getAccounts(email.get());
-            log.info("Fetched accounts {} ", accounts);
+            Account account = accountsService.getAccount(email.get());
+            log.info("Fetched account {} ", account);
             //return
-            return new ResponseEntity(accounts, getCorsHeaders(), HttpStatus.OK);
+            return new ResponseEntity(account, getCorsHeaders(), HttpStatus.OK);
         }
         catch (Exception e){
             log.error("Error processing request ", e);

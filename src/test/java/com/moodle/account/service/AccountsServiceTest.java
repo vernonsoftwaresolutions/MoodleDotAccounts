@@ -56,10 +56,11 @@ public class AccountsServiceTest {
         assertEquals(service.save(accountDTO), account) ;
     }
 
-    //getAccounts
+    //getAccount
 
     @Test
     public void getAccountsByEmail() throws Exception {
-        assertNotNull(service.getAccounts("EMAIL"));
+        given(accountsRepository.getAccount("EMAIL")).willReturn(new Account());
+        assertNotNull(service.getAccount("EMAIL"));
     }
 }
