@@ -37,9 +37,7 @@ public class AccountsRespositoryImpl implements AccountsRepository {
 
     @Override
     public Account getAccount(String email) {
-        Account account = new Account();
-        account.setEmail(email);
-        return dynamoDBMapper.load(Account.class, account);
+        return dynamoDBMapper.load(Account.class, email);
 
     }
 }
