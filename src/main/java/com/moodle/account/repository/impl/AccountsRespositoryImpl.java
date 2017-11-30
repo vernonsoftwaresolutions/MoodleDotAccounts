@@ -39,9 +39,7 @@ public class AccountsRespositoryImpl implements AccountsRepository {
     public Account getAccount(String email) {
         Account account = new Account();
         account.setEmail(email);
-        DynamoDBQueryExpression<Account> queryExpression = new DynamoDBQueryExpression<Account>()
-                .withHashKeyValues(account);
-        return dynamoDBMapper.load(Account.class, queryExpression);
+        return dynamoDBMapper.load(Account.class, account);
 
     }
 }
