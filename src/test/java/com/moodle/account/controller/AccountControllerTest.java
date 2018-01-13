@@ -142,6 +142,8 @@ public class AccountControllerTest {
     //get by email tests
     @Test
     public void getAccountByEmail200() throws Exception {
+        given(service.getAccount(email.get())).willReturn(new Account());
+
         assertEquals(accountController.getAccountByEmail(email).getStatusCode(), HttpStatus.OK);
 
     }
@@ -149,6 +151,18 @@ public class AccountControllerTest {
     public void getAccountByEmailNotNull() throws Exception {
         given(service.getAccount(email.get())).willReturn(new Account());
         assertNotNull(accountController.getAccountByEmail(email).getBody());
+
+    }
+    @Test
+    public void getAccountByEmailNotFound() throws Exception {
+        given(service.getAccount(email.get())).willReturn(null);
+        assertNotNull(accountController.getAccountByEmail(email).getBody());
+
+    }
+    @Test
+    public void getAccountByEmail400() throws Exception {
+        given(service.getAccount(email.get())).willReturn(null);
+        assertEquals(accountController.getAccountByEmail(email).getStatusCode(), HttpStatus.NOT_FOUND);
 
     }
     @Test

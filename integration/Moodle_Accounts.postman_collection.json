@@ -10,6 +10,7 @@
 		"4e6ceb81-ff19-1380-1d3f-f6ab346932df",
 		"d898d6d5-d7d6-398c-d143-b1ef51b48bc6",
 		"087e4506-3503-5b0c-5eb9-20488d44ba4d",
+		"e6e60115-03b8-18dc-7e61-435c89f4a9e4",
 		"ab6af440-4a83-9939-e2b1-835e66051157",
 		"a38305e2-99a0-bb47-39c0-51c987367f76",
 		"e86ddb46-3dcb-0ea6-e999-d8f35cf24c72"
@@ -19,6 +20,9 @@
 	"timestamp": 1509774794505,
 	"owner": "837563",
 	"public": false,
+	"events": [],
+	"variables": [],
+	"auth": null,
 	"requests": [
 		{
 			"id": "087e4506-3503-5b0c-5eb9-20488d44ba4d",
@@ -41,21 +45,50 @@
 					"enabled": true
 				}
 			],
-			"preRequestScript": "",
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\nconsole.log(\"get response \")\nvar jsonData = JSON.parse(responseBody);\n\nconsole.log(\"get first response \")\n\naccount = jsonData;\ntests[\"Id is not null\"] = account.id !== null && account.id !== undefined;\ntests[\"firstName not null\"] = account.firstName === globals.firstName;\ntests[\"lastName not null\"] = account.lastName === globals.lastName;\ntests[\"email not null\"] = account.email === globals.email1;\ntests[\"phoneNumber not null\"] = account.phoneNumber === globals.phoneNumber\ntests[\"companyName not null\"] = account.companyName === globals.randomClient;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1512016479268,
 			"name": "Get Accounts",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							"",
+							"",
+							"",
+							"console.log(\"get response \")",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"console.log(\"get first response \")",
+							"",
+							"account = jsonData;",
+							"tests[\"Id is not null\"] = account.id !== null && account.id !== undefined;",
+							"tests[\"firstName not null\"] = account.firstName === globals.firstName;",
+							"tests[\"lastName not null\"] = account.lastName === globals.lastName;",
+							"tests[\"email not null\"] = account.email === globals.email1;",
+							"tests[\"phoneNumber not null\"] = account.phoneNumber === globals.phoneNumber",
+							"tests[\"companyName not null\"] = account.companyName === globals.randomClient;"
+						]
+					}
+				}
+			],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\nconsole.log(\"get response \")\nvar jsonData = JSON.parse(responseBody);\n\nconsole.log(\"get first response \")\n\naccount = jsonData;\ntests[\"Id is not null\"] = account.id !== null && account.id !== undefined;\ntests[\"firstName not null\"] = account.firstName === globals.firstName;\ntests[\"lastName not null\"] = account.lastName === globals.lastName;\ntests[\"email not null\"] = account.email === globals.email1;\ntests[\"phoneNumber not null\"] = account.phoneNumber === globals.phoneNumber\ntests[\"companyName not null\"] = account.companyName === globals.randomClient;",
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": ""
 		},
 		{
@@ -71,21 +104,33 @@
 			],
 			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
-			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 422\"] = responseCode.code === 422;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1511383360843,
 			"name": "No lastName 422",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 422\"] = responseCode.code === 422;"
+						]
+					}
+				}
+			],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 422\"] = responseCode.code === 422;",
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": "{\n\t\"firstName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"client\"\n\t\n}\n"
 		},
 		{
@@ -101,21 +146,34 @@
 			],
 			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
-			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\n",
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1511383310209,
 			"name": "Cold Start",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var randomClient = Math.random().toString(36).slice(2)",
+							""
+						]
+					}
+				}
+			],
+			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\n",
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": "{\n\t\"firstName\": \"Andrew\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
 		},
 		{
@@ -131,21 +189,33 @@
 			],
 			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
-			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 422\"] = responseCode.code === 422;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1511383363747,
 			"name": "No companyName 422",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 422\"] = responseCode.code === 422;"
+						]
+					}
+				}
+			],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 422\"] = responseCode.code === 422;",
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": "{\n\t\"firstName\": \"Larsen\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\"\n}\n"
 		},
 		{
@@ -161,21 +231,33 @@
 			],
 			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
-			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 422\"] = responseCode.code === 422;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1511383358387,
 			"name": "No firstName 422",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 422\"] = responseCode.code === 422;"
+						]
+					}
+				}
+			],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 422\"] = responseCode.code === 422;",
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": "{\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"client\"\n\t\n}\n"
 		},
 		{
@@ -191,21 +273,62 @@
 			],
 			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
-			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"randomClient\",randomClient);\nvar randomEmail = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"email2\",randomEmail);\npostman.setGlobalVariable(\"firstName\",\"Andrew\");\npostman.setGlobalVariable(\"lastName\",\"Larsen\");\npostman.setGlobalVariable(\"phoneNumber\",\"1231231234\");\n",
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;\ntests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;\ntests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;\ntests[\"email not null\"] = jsonData.email !== null && jsonData.email !== undefined;\ntests[\"phoneNumber not null\"] = jsonData.phoneNumber !== null && jsonData.phoneNumber !== undefined;\ntests[\"companyName not null\"] = jsonData.companyName !== null && jsonData.companyName !== undefined;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1511928707025,
 			"name": "Post Moodle Accounts 2",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var randomClient = Math.random().toString(36).slice(2)",
+							"postman.setGlobalVariable(\"randomClient\",randomClient);",
+							"var randomEmail = Math.random().toString(36).slice(2)",
+							"postman.setGlobalVariable(\"email2\",randomEmail);",
+							"postman.setGlobalVariable(\"firstName\",\"Andrew\");",
+							"postman.setGlobalVariable(\"lastName\",\"Larsen\");",
+							"postman.setGlobalVariable(\"phoneNumber\",\"1231231234\");",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							"",
+							"",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;",
+							"tests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;",
+							"tests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;",
+							"tests[\"email not null\"] = jsonData.email !== null && jsonData.email !== undefined;",
+							"tests[\"phoneNumber not null\"] = jsonData.phoneNumber !== null && jsonData.phoneNumber !== undefined;",
+							"tests[\"companyName not null\"] = jsonData.companyName !== null && jsonData.companyName !== undefined;"
+						]
+					}
+				}
+			],
+			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"randomClient\",randomClient);\nvar randomEmail = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"email2\",randomEmail);\npostman.setGlobalVariable(\"firstName\",\"Andrew\");\npostman.setGlobalVariable(\"lastName\",\"Larsen\");\npostman.setGlobalVariable(\"phoneNumber\",\"1231231234\");\n",
+			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;\ntests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;\ntests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;\ntests[\"email not null\"] = jsonData.email !== null && jsonData.email !== undefined;\ntests[\"phoneNumber not null\"] = jsonData.phoneNumber !== null && jsonData.phoneNumber !== undefined;\ntests[\"companyName not null\"] = jsonData.companyName !== null && jsonData.companyName !== undefined;",
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": "{\n\t\"firstName\": \"{{firstName}}\",\n\t\"lastName\": \"{{lastName}}\",\n\t\"email\": \"{{email2}}\",\n\t\"phoneNumber\": \"{{phoneNumber}}\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
 		},
 		{
@@ -221,21 +344,48 @@
 			],
 			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
-			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\n\npostman.setGlobalVariable(\"randomClient\",randomClient);\n",
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1512016671332,
 			"name": "Post Moodle Accounts Repeat",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var randomClient = Math.random().toString(36).slice(2)",
+							"",
+							"postman.setGlobalVariable(\"randomClient\",randomClient);",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							""
+						]
+					}
+				}
+			],
+			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\n\npostman.setGlobalVariable(\"randomClient\",randomClient);\n",
+			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": "{\n\t\"firstName\": \"{{firstName}}\",\n\t\"lastName\": \"{{lastName}}\",\n\t\"email\": \"{{email1}}\",\n\t\"phoneNumber\": \"{{phoneNumber}}\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
 		},
 		{
@@ -251,21 +401,20 @@
 			],
 			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
-			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1511385953453,
 			"name": "Cold Start",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": "{\n\t\n}\n"
 		},
 		{
@@ -281,22 +430,116 @@
 			],
 			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
-			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"randomClient\",randomClient);\nvar randomEmail = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"email1\",randomEmail);\npostman.setGlobalVariable(\"firstName\",\"Andrew\");\npostman.setGlobalVariable(\"lastName\",\"Larsen\");\npostman.setGlobalVariable(\"phoneNumber\",\"1231231234\");\n",
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;\ntests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;\ntests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;\ntests[\"email not null\"] = jsonData.email !== null && jsonData.email !== undefined;\ntests[\"phoneNumber not null\"] = jsonData.phoneNumber !== null && jsonData.phoneNumber !== undefined;\ntests[\"companyName not null\"] = jsonData.companyName !== null && jsonData.companyName !== undefined;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1511383746213,
 			"name": "Post Moodle Accounts 1",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var randomClient = Math.random().toString(36).slice(2)",
+							"postman.setGlobalVariable(\"randomClient\",randomClient);",
+							"var randomEmail = Math.random().toString(36).slice(2)",
+							"postman.setGlobalVariable(\"email1\",randomEmail);",
+							"postman.setGlobalVariable(\"firstName\",\"Andrew\");",
+							"postman.setGlobalVariable(\"lastName\",\"Larsen\");",
+							"postman.setGlobalVariable(\"phoneNumber\",\"1231231234\");",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							"",
+							"",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;",
+							"tests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;",
+							"tests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;",
+							"tests[\"email not null\"] = jsonData.email !== null && jsonData.email !== undefined;",
+							"tests[\"phoneNumber not null\"] = jsonData.phoneNumber !== null && jsonData.phoneNumber !== undefined;",
+							"tests[\"companyName not null\"] = jsonData.companyName !== null && jsonData.companyName !== undefined;"
+						]
+					}
+				}
+			],
+			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"randomClient\",randomClient);\nvar randomEmail = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"email1\",randomEmail);\npostman.setGlobalVariable(\"firstName\",\"Andrew\");\npostman.setGlobalVariable(\"lastName\",\"Larsen\");\npostman.setGlobalVariable(\"phoneNumber\",\"1231231234\");\n",
+			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;\ntests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;\ntests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;\ntests[\"email not null\"] = jsonData.email !== null && jsonData.email !== undefined;\ntests[\"phoneNumber not null\"] = jsonData.phoneNumber !== null && jsonData.phoneNumber !== undefined;\ntests[\"companyName not null\"] = jsonData.companyName !== null && jsonData.companyName !== undefined;",
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": "{\n\t\"firstName\": \"{{firstName}}\",\n\t\"lastName\": \"{{lastName}}\",\n\t\"email\": \"{{email1}}\",\n\t\"phoneNumber\": \"{{phoneNumber}}\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
+		},
+		{
+			"id": "e6e60115-03b8-18dc-7e61-435c89f4a9e4",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/v1/accounts?email=NOTFOUND",
+			"queryParams": [
+				{
+					"key": "email",
+					"value": "NOTFOUND",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d6fb39a-68a1-4896-b7c2-f863ec59a18f",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 404\"] = responseCode.code === 404;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1515816728656,
+			"name": "Get Accounts Not Found",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 404\"] = responseCode.code === 404;\n\n",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": ""
 		},
 		{
 			"id": "e86ddb46-3dcb-0ea6-e999-d8f35cf24c72",
@@ -319,21 +562,50 @@
 					"enabled": true
 				}
 			],
-			"preRequestScript": "",
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\nconsole.log(\"get response \")\nvar jsonData = JSON.parse(responseBody);\n\nconsole.log(\"get first response \")\n\naccount = jsonData;\ntests[\"Id is correct\"] = account.id !== null && account.id !== undefined;\ntests[\"firstName correct\"] = account.firstName === globals.firstName;\ntests[\"lastName correct\"] = account.lastName === globals.lastName;\ntests[\"email correct\"] = account.email === globals.email2;\ntests[\"phoneNumber correct\"] = account.phoneNumber === globals.phoneNumber\ntests[\"companyName correct\"] = account.companyName === globals.randomClient;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
 			"time": 1512016610575,
 			"name": "Get Accounts 2",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							"",
+							"",
+							"",
+							"console.log(\"get response \")",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"console.log(\"get first response \")",
+							"",
+							"account = jsonData;",
+							"tests[\"Id is correct\"] = account.id !== null && account.id !== undefined;",
+							"tests[\"firstName correct\"] = account.firstName === globals.firstName;",
+							"tests[\"lastName correct\"] = account.lastName === globals.lastName;",
+							"tests[\"email correct\"] = account.email === globals.email2;",
+							"tests[\"phoneNumber correct\"] = account.phoneNumber === globals.phoneNumber",
+							"tests[\"companyName correct\"] = account.companyName === globals.randomClient;"
+						]
+					}
+				}
+			],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\nconsole.log(\"get response \")\nvar jsonData = JSON.parse(responseBody);\n\nconsole.log(\"get first response \")\n\naccount = jsonData;\ntests[\"Id is correct\"] = account.id !== null && account.id !== undefined;\ntests[\"firstName correct\"] = account.firstName === globals.firstName;\ntests[\"lastName correct\"] = account.lastName === globals.lastName;\ntests[\"email correct\"] = account.email === globals.email2;\ntests[\"phoneNumber correct\"] = account.phoneNumber === globals.phoneNumber\ntests[\"companyName correct\"] = account.companyName === globals.randomClient;",
+			"currentHelper": null,
+			"helperAttributes": null,
 			"rawModeData": ""
 		}
 	]

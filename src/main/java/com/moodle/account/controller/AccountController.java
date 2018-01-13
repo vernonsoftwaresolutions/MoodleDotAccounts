@@ -93,6 +93,11 @@ public class AccountController {
             //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
             Account account = accountsService.getAccount(email.get());
             log.info("Fetched account {} ", account);
+            if(account == null){
+                return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                        , getCorsHeaders(), HttpStatus.NOT_FOUND);
+
+            }
             //return
             return new ResponseEntity(account, getCorsHeaders(), HttpStatus.OK);
         }
