@@ -9,6 +9,7 @@
 		"15304fc3-e44a-141c-8269-9142fa5515c4",
 		"4e6ceb81-ff19-1380-1d3f-f6ab346932df",
 		"d898d6d5-d7d6-398c-d143-b1ef51b48bc6",
+		"968d612c-2d3f-be7e-fac2-fa0dc8ad6f4a",
 		"087e4506-3503-5b0c-5eb9-20488d44ba4d",
 		"e6e60115-03b8-18dc-7e61-435c89f4a9e4",
 		"ab6af440-4a83-9939-e2b1-835e66051157",
@@ -259,6 +260,71 @@
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\",\n\t\"companyName\": \"client\"\n\t\n}\n"
+		},
+		{
+			"id": "968d612c-2d3f-be7e-fac2-fa0dc8ad6f4a",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/v1/accounts",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b7f32b8d-185d-4e19-be1b-0073f693c129",
+						"type": "text/javascript",
+						"exec": [
+							"var randomClient = Math.random().toString(36).slice(2)",
+							"postman.setGlobalVariable(\"randomClient\",randomClient);",
+							"var randomEmail = Math.random().toString(36).slice(2)",
+							"postman.setGlobalVariable(\"email1\",randomEmail);",
+							"postman.setGlobalVariable(\"firstName\",\"Andrew\");",
+							"postman.setGlobalVariable(\"lastName\",\"Larsen\");",
+							"postman.setGlobalVariable(\"phoneNumber\",\"1231231234\");",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c9ca859-88b6-4288-af8e-08d9e96ab0ae",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "OPTIONS",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1516754069818,
+			"name": "Options Moodle Accounts",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"randomClient\",randomClient);\nvar randomEmail = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"email1\",randomEmail);\npostman.setGlobalVariable(\"firstName\",\"Andrew\");\npostman.setGlobalVariable(\"lastName\",\"Larsen\");\npostman.setGlobalVariable(\"phoneNumber\",\"1231231234\");\n",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\nvar jsonData = JSON.parse(responseBody);",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n\t\"firstName\": \"{{firstName}}\",\n\t\"lastName\": \"{{lastName}}\",\n\t\"email\": \"{{email1}}\",\n\t\"phoneNumber\": \"{{phoneNumber}}\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
 		},
 		{
 			"id": "a38305e2-99a0-bb47-39c0-51c987367f76",
