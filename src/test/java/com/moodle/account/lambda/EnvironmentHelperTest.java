@@ -1,6 +1,6 @@
 package com.moodle.account.lambda;
 
-import com.amazonaws.serverless.proxy.internal.model.AwsProxyRequest;
+import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
