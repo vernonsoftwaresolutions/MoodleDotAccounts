@@ -3,12 +3,15 @@ package com.moodle.account.repository.impl;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.moodle.account.model.Account;
 import com.moodle.account.repository.AccountsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -39,5 +42,26 @@ public class AccountsRespositoryImpl implements AccountsRepository {
     public Account getAccount(String email) {
         return dynamoDBMapper.load(Account.class, email);
 
+    }
+
+    public Optional<Account> getAccountById(String id){
+        HashMap<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+        eav.put(":v1",  new AttributeValue().withS(id));
+
+        DynamoDBQueryExpression<Account> queryExpression = new DynamoDBQueryExpression<Account>()
+                //todo-factor this out
+                .withIndexName("id-index")
+                .withConsistentRead(false)
+                .withKeyConditionExpression("id = :v1")
+                .withExpressionAttributeValues(eav);
+
+        List<Account> accountList =  dynamoDBMapper.query(Account.class, queryExpression);
+        if(accountList.size() > 1){
+            throw new IllegalArgumentException("Invalid number of accounts for id");
+        }
+        if(accountList.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(accountList.get(0));
     }
 }

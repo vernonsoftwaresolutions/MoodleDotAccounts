@@ -32,6 +32,7 @@ public class AccountControllerTest {
     private AccountController accountController;
     private Account response;
     Optional<String> email = Optional.of("EMAIL");
+    private String id = "ID";
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
@@ -202,6 +203,60 @@ public class AccountControllerTest {
     public void getAccountByEmail500CodeHeaders() throws Exception {
         given(service.getAccount(email.get())).willThrow(new RuntimeException());
         ResponseEntity<Error> response = accountController.getAccountByEmail(email);
+        assertThat(response.getHeaders().size(), is(1));
+
+    }
+    //get by id tests
+    @Test
+    public void getAccountById200() throws Exception {
+        given(service.getAccountById(id)).willReturn(Optional.of(new Account()));
+
+        assertEquals(accountController.getAccountById(id).getStatusCode(), HttpStatus.OK);
+
+    }
+    @Test
+    public void getAccountByIdNotNull() throws Exception {
+        given(service.getAccountById(id)).willReturn(Optional.of(new Account()));
+        assertNotNull(accountController.getAccountById(id).getBody());
+
+    }
+    @Test
+    public void getAccountByIdNotFound() throws Exception {
+
+        given(service.getAccountById(id)).willReturn(Optional.empty());
+
+        assertNotNull(accountController.getAccountById(id).getBody());
+
+    }
+    @Test
+    public void getAccountById400() throws Exception {
+        given(service.getAccountById(id)).willReturn(Optional.empty());
+        assertEquals(accountController.getAccountById(id).getStatusCode(), HttpStatus.NOT_FOUND);
+
+    }
+    @Test
+    public void getAccountById200Headers() throws Exception {
+        assertThat(accountController.getAccountById(id).getHeaders().size(), is(1));
+    }
+
+    @Test
+    public void getAccountById500Message() throws Exception {
+        given(service.getAccountById(id)).willThrow(new RuntimeException());
+        ResponseEntity<Error> response = accountController.getAccountById(id);
+        assertThat(response.getBody().getMessage(), is(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()));
+
+    }
+    @Test
+    public void getAccountById500Code() throws Exception {
+        given(service.getAccountById(id)).willThrow(new RuntimeException());
+        ResponseEntity<Error> response = accountController.getAccountById(id);
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+
+    }
+    @Test
+    public void getAccountById500CodeHeaders() throws Exception {
+        given(service.getAccountById(id)).willThrow(new RuntimeException());
+        ResponseEntity<Error> response = accountController.getAccountById(id);
         assertThat(response.getHeaders().size(), is(1));
 
     }

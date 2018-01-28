@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 /**
  * Created by andrewlarsen on 11/4/17.
@@ -52,6 +54,10 @@ public class AccountsService {
      */
     public Account getAccount(String email){
         return accountsRepository.getAccount(email);
+    }
+
+    public Optional<Account> getAccountById(String id){
+        return accountsRepository.getAccountById(id);
     }
 
     /**
