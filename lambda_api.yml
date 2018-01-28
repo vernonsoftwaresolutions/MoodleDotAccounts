@@ -297,6 +297,9 @@ Resources:
         -
           AttributeName: "email"
           AttributeType: "S"
+       -
+          AttributeName: "id"
+          AttributeType: "S"
       KeySchema:
         -
           AttributeName: "email"
