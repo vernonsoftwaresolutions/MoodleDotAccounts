@@ -278,16 +278,9 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "b7f32b8d-185d-4e19-be1b-0073f693c129",
+						"id": "7df55f4f-9beb-474a-8e3e-e36595c33a7a",
 						"type": "text/javascript",
 						"exec": [
-							"var randomClient = Math.random().toString(36).slice(2)",
-							"postman.setGlobalVariable(\"randomClient\",randomClient);",
-							"var randomEmail = Math.random().toString(36).slice(2)",
-							"postman.setGlobalVariable(\"email1\",randomEmail);",
-							"postman.setGlobalVariable(\"firstName\",\"Andrew\");",
-							"postman.setGlobalVariable(\"lastName\",\"Larsen\");",
-							"postman.setGlobalVariable(\"phoneNumber\",\"1231231234\");",
 							""
 						]
 					}
@@ -295,15 +288,14 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3c9ca859-88b6-4288-af8e-08d9e96ab0ae",
+						"id": "4aa6406e-ab83-470f-804b-f00bae48fbe0",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
 							"",
-							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\") !== null ;",
 							"",
-							"",
-							"var jsonData = JSON.parse(responseBody);"
+							""
 						]
 					}
 				}
@@ -315,13 +307,13 @@
 			"dataMode": "raw",
 			"version": 2,
 			"auth": null,
-			"time": 1516754069818,
+			"time": 1517169657432,
 			"name": "Options Moodle Accounts",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
-			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"randomClient\",randomClient);\nvar randomEmail = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"email1\",randomEmail);\npostman.setGlobalVariable(\"firstName\",\"Andrew\");\npostman.setGlobalVariable(\"lastName\",\"Larsen\");\npostman.setGlobalVariable(\"phoneNumber\",\"1231231234\");\n",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\nvar jsonData = JSON.parse(responseBody);",
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\") !== null ;\n\n",
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\t\"firstName\": \"{{firstName}}\",\n\t\"lastName\": \"{{lastName}}\",\n\t\"email\": \"{{email1}}\",\n\t\"phoneNumber\": \"{{phoneNumber}}\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
