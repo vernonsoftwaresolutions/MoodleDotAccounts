@@ -304,6 +304,20 @@ Resources:
       ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+      GlobalSecondaryIndexes:
+        -
+          IndexName: "id-index"
+          KeySchema:
+            -
+              AttributeName: "id"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits:
+              Ref: 1
+            WriteCapacityUnits:
+              Ref: 1
       TableName: !Sub ${TableBaseName}_${Stage}
 
 #output
