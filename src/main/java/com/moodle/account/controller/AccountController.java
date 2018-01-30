@@ -102,7 +102,7 @@ public class AccountController {
 
             }
             //return
-            return new ResponseEntity(account, getCorsHeaders(), HttpStatus.OK);
+            return new ResponseEntity(account.get(), getCorsHeaders(), HttpStatus.OK);
         }
         catch (Exception e){
             log.error("Error processing request ", e);
