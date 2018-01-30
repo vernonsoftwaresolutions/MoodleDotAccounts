@@ -144,7 +144,7 @@ public class AccountController {
             //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
             accountsService.deleteAccount(account, id);
             //return
-            return new ResponseEntity(HttpStatus.OK.getReasonPhrase(), getCorsHeaders(), HttpStatus.OK);
+            return new ResponseEntity( getCorsHeaders(), HttpStatus.OK);
         }
         catch (Exception e){
             log.error("Error processing request ", e);

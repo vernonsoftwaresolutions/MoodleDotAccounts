@@ -13,9 +13,9 @@
 		"087e4506-3503-5b0c-5eb9-20488d44ba4d",
 		"1e09e3ee-bf74-f917-8ed7-41dfc2277e65",
 		"e6e60115-03b8-18dc-7e61-435c89f4a9e4",
+		"ab6af440-4a83-9939-e2b1-835e66051157",
 		"cb902a46-a292-178e-76fc-8525398f2acd",
 		"eb2a1330-5270-220e-8503-38ccb16795c6",
-		"ab6af440-4a83-9939-e2b1-835e66051157",
 		"a38305e2-99a0-bb47-39c0-51c987367f76",
 		"e86ddb46-3dcb-0ea6-e999-d8f35cf24c72",
 		"03ec80e5-a00c-6dd5-4298-59556730593e",
@@ -377,7 +377,7 @@
 			"dataMode": "raw",
 			"version": 2,
 			"auth": null,
-			"time": 1517290816823,
+			"time": 1517291124108,
 			"name": "Get Accounts/:id 2",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
@@ -386,7 +386,7 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
 			"currentHelper": null,
 			"helperAttributes": null,
-			"rawModeData": "{\n\t\"email\": {{email2}}\n}"
+			"rawModeData": "{\n\t\"email\": \"{{email1}}\"\n}"
 		},
 		{
 			"id": "8674d92b-0513-0538-c921-f42c3377469e",
@@ -687,8 +687,8 @@
 			"dataMode": "raw",
 			"version": 2,
 			"auth": null,
-			"time": 1517290794746,
-			"name": "Get Accounts/:id",
+			"time": 1517291116427,
+			"name": "Delete Accounts/:id",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
@@ -696,7 +696,7 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
 			"currentHelper": null,
 			"helperAttributes": null,
-			"rawModeData": "{\n\t\"email\": {{email1}}\n}"
+			"rawModeData": "{\n\t\"email\": \"{{email1}}\"\n}"
 		},
 		{
 			"id": "d898d6d5-d7d6-398c-d143-b1ef51b48bc6",
