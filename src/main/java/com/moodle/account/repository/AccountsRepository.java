@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface AccountsRepository {
 
     Account save(Account account);
-    Account getAccount(String email);
+    Optional<Account> getAccount(String email);
     Optional<Account> getAccountById(String id);
+    void deleteAccount(Account account);
 }

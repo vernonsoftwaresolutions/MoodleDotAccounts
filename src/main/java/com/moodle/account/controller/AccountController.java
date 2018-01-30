@@ -42,7 +42,7 @@ public class AccountController {
         this.accountsService = accountsService;
     }
 
-    @RequestMapping(path = "/v1/accounts", method = RequestMethod.POST)
+    @PostMapping(path = "/v1/accounts")
     public ResponseEntity createAccount(@RequestBody AccountDTO account) {
         try {
             if(account == null){
@@ -69,7 +69,12 @@ public class AccountController {
             //return success
             return new ResponseEntity(savedAccount, getCorsHeaders(), HttpStatus.CREATED);
         }
+        catch (IllegalStateException e){
+            log.error("Error processing request ", e);
+            return new ResponseEntity(new Error(e.getMessage()),
+                    getCorsHeaders(), HttpStatus.CONFLICT);
 
+        }
         catch (Exception e){
             log.error("Error processing request ", e);
             return new ResponseEntity(new Error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()),
@@ -77,7 +82,7 @@ public class AccountController {
 
         }
     }
-    @RequestMapping(path = "/v1/accounts", method = RequestMethod.GET)
+    @GetMapping(path = "/v1/accounts")
     public ResponseEntity getAccountByEmail(@RequestParam("email") Optional<String> email) {
         try {
 
@@ -89,9 +94,9 @@ public class AccountController {
 
             }
             //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
-            Account account = accountsService.getAccount(email.get());
+            Optional<Account> account = accountsService.getAccount(email.get());
             log.info("Fetched account {} ", account);
-            if(account == null){
+            if(!account.isPresent()){
                 return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())
                         , getCorsHeaders(), HttpStatus.NOT_FOUND);
 
@@ -130,7 +135,24 @@ public class AccountController {
         }
 
     }
+    @DeleteMapping(path = "/v1/accounts/{id}")
+    public ResponseEntity deleteAccount(@PathVariable("id") String id) {
+        try {
 
+            log.debug("Request received to delete account by id {} ", id);
+
+            //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
+            accountsService.deleteAccount(id);
+            //return
+            return new ResponseEntity(HttpStatus.OK.getReasonPhrase(), getCorsHeaders(), HttpStatus.OK);
+        }
+        catch (Exception e){
+            log.error("Error processing request ", e);
+            return new ResponseEntity(new Error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()),
+                    getCorsHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
     /**
      * Helper method to create cors headers for Browsers
      * @return

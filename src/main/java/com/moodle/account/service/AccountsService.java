@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 
@@ -22,15 +23,10 @@ public class AccountsService {
     private Logger log = LoggerFactory.getLogger(AccountsService.class);
 
     private AccountsRepository accountsRepository;
-    private MoodleTenantClient tenantClient;
-    private MoodleSiteRequestFactory factory;
-
 
     @Autowired
-    public AccountsService(AccountsRepository accountsRepository, MoodleTenantClient tenantClient, MoodleSiteRequestFactory factory) {
+    public AccountsService(AccountsRepository accountsRepository) {
         this.accountsRepository = accountsRepository;
-        this.tenantClient = tenantClient;
-        this.factory = factory;
     }
 
 
@@ -40,10 +36,16 @@ public class AccountsService {
      * @return
      */
     public Account save(AccountDTO account){
+        //check if account exists for email
+        if(accountsRepository.getAccount(account.getEmail()).isPresent()) {
+            log.info("Account already exists for given email");
+            throw new IllegalStateException("Account exists for email");
+        }
         //first save the account into the account database
         log.info("Saving account to db");
         Account savedAccount = accountsRepository.save(createaccount(account));
         return savedAccount;
+
 
     }
 
@@ -52,12 +54,22 @@ public class AccountsService {
      * @param email
      * @return
      */
-    public Account getAccount(String email){
+    public Optional<Account> getAccount(String email){
         return accountsRepository.getAccount(email);
     }
 
     public Optional<Account> getAccountById(String id){
         return accountsRepository.getAccountById(id);
+    }
+
+    /**
+     * Method to delete account by account id
+     * @param id
+     */
+    public void deleteAccount(String id){
+        Account account = new Account();
+        account.setId(id);
+        accountsRepository.deleteAccount(account);
     }
 
     /**

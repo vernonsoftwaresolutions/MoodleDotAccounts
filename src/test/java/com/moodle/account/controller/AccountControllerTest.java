@@ -54,7 +54,13 @@ public class AccountControllerTest {
         assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
 
     }
+    @Test
+    public void createAccountConflict() throws Exception {
+        given(service.save(account)).willThrow(new IllegalStateException());
+        ResponseEntity response = accountController.createAccount(this.account);
+        assertThat(response.getStatusCode(), is(HttpStatus.CONFLICT));
 
+    }
     @Test
     public void createAccountIdPopulated() throws Exception {
         given(service.save(account)).willReturn(response);
@@ -143,14 +149,14 @@ public class AccountControllerTest {
     //get by email tests
     @Test
     public void getAccountByEmail200() throws Exception {
-        given(service.getAccount(email.get())).willReturn(new Account());
+        given(service.getAccount(email.get())).willReturn(Optional.of(new Account()));
 
         assertEquals(accountController.getAccountByEmail(email).getStatusCode(), HttpStatus.OK);
 
     }
     @Test
     public void getAccountByEmailNotNull() throws Exception {
-        given(service.getAccount(email.get())).willReturn(new Account());
+        given(service.getAccount(email.get())).willReturn(Optional.of(new Account()));
         assertNotNull(accountController.getAccountByEmail(email).getBody());
 
     }
@@ -162,7 +168,7 @@ public class AccountControllerTest {
     }
     @Test
     public void getAccountByEmail400() throws Exception {
-        given(service.getAccount(email.get())).willReturn(null);
+        given(service.getAccount(email.get())).willReturn(Optional.empty());
         assertEquals(accountController.getAccountByEmail(email).getStatusCode(), HttpStatus.NOT_FOUND);
 
     }
@@ -260,4 +266,12 @@ public class AccountControllerTest {
         assertThat(response.getHeaders().size(), is(1));
 
     }
+    //get by email tests
+    @Test
+    public void deleteAccount200() throws Exception {
+
+        assertEquals(accountController.deleteAccount(id).getStatusCode(), HttpStatus.OK);
+
+    }
+
 }

@@ -13,10 +13,13 @@
 		"087e4506-3503-5b0c-5eb9-20488d44ba4d",
 		"1e09e3ee-bf74-f917-8ed7-41dfc2277e65",
 		"e6e60115-03b8-18dc-7e61-435c89f4a9e4",
+		"cb902a46-a292-178e-76fc-8525398f2acd",
+		"eb2a1330-5270-220e-8503-38ccb16795c6",
 		"ab6af440-4a83-9939-e2b1-835e66051157",
 		"a38305e2-99a0-bb47-39c0-51c987367f76",
 		"e86ddb46-3dcb-0ea6-e999-d8f35cf24c72",
-		"03ec80e5-a00c-6dd5-4298-59556730593e"
+		"03ec80e5-a00c-6dd5-4298-59556730593e",
+		"7cca7c32-af74-6d56-3029-4190c6c7faec"
 	],
 	"folders": [],
 	"folders_order": [],
@@ -38,28 +41,8 @@
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/v1/accounts?email={{email2}}",
-			"queryParams": [
-				{
-					"key": "email",
-					"value": "{{email2}}",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"time": 1512016610575,
-			"name": "Get Accounts/:id 2",
-			"description": "Moodle Users Resources",
-			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
-			"responses": [],
-			"auth": null,
+			"url": "{{URL}}/v1/accounts/{{id2}}",
+			"queryParams": [],
 			"events": [
 				{
 					"listen": "test",
@@ -88,8 +71,18 @@
 					}
 				}
 			],
-			"isFromCollection": true,
-			"collectionRequestId": "e86ddb46-3dcb-0ea6-e999-d8f35cf24c72",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1517289626125,
+			"name": "Get Accounts/:id 2",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
 			"preRequestScript": null,
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\nconsole.log(\"get response \")\nvar jsonData = JSON.parse(responseBody);\n\nconsole.log(\"get first response \")\n\naccount = jsonData;\ntests[\"Id is correct\"] = account.id !== null && account.id !== undefined;\ntests[\"firstName correct\"] = account.firstName === globals.firstName;\ntests[\"lastName correct\"] = account.lastName === globals.lastName;\ntests[\"email correct\"] = account.email === globals.email2;\ntests[\"phoneNumber correct\"] = account.phoneNumber === globals.phoneNumber\ntests[\"companyName correct\"] = account.companyName === globals.randomClient;",
 			"currentHelper": null,
@@ -350,6 +343,52 @@
 			"rawModeData": "{\n\t\"firstName\": \"Larsen\",\n\t\"lastName\": \"Larsen\",\n\t\"email\": \"STAGE\",\n\t\"phoneNumber\": \"1234123234\"\n}\n"
 		},
 		{
+			"id": "7cca7c32-af74-6d56-3029-4190c6c7faec",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/v1/accounts/{{id2}}",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d72e6dd3-7c5f-47a9-8f62-a1f18750ecb2",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							""
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1517289623204,
+			"name": "Get Accounts/:id 2",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": ""
+		},
+		{
 			"id": "8674d92b-0513-0538-c921-f42c3377469e",
 			"headers": "Content-Type: application/json\n",
 			"headerData": [
@@ -482,7 +521,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d8ea65e9-11da-412d-901c-8d4b91a7576c",
+						"id": "0230844c-f9a3-439d-b194-3e5b2e45be10",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"Status code is 201\"] = responseCode.code === 201;",
@@ -496,7 +535,7 @@
 							"tests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;",
 							"",
 							"console.log(\"set id\")",
-							"postman.setGlobalVariable(\"id\",jsonData.id);",
+							"postman.setGlobalVariable(\"id2\",jsonData.id);",
 							"",
 							"tests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;",
 							"tests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;",
@@ -514,13 +553,13 @@
 			"dataMode": "raw",
 			"version": 2,
 			"auth": null,
-			"time": 1517174622953,
+			"time": 1517289618157,
 			"name": "Post Moodle Accounts 2",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
 			"responses": [],
 			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"randomClient\",randomClient);\nvar randomEmail = Math.random().toString(36).slice(2)\npostman.setGlobalVariable(\"email2\",randomEmail);\npostman.setGlobalVariable(\"firstName\",\"Andrew\");\npostman.setGlobalVariable(\"lastName\",\"Larsen\");\npostman.setGlobalVariable(\"phoneNumber\",\"1231231234\");\n",
-			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;\n\nconsole.log(\"set id\")\npostman.setGlobalVariable(\"id\",jsonData.id);\n\ntests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;\ntests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;\ntests[\"email not null\"] = jsonData.email !== null && jsonData.email !== undefined;\ntests[\"phoneNumber not null\"] = jsonData.phoneNumber !== null && jsonData.phoneNumber !== undefined;\ntests[\"companyName not null\"] = jsonData.companyName !== null && jsonData.companyName !== undefined;",
+			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Id is not null\"] = jsonData.id !== null && jsonData.id !== undefined;\n\nconsole.log(\"set id\")\npostman.setGlobalVariable(\"id2\",jsonData.id);\n\ntests[\"firstName not null\"] = jsonData.firstName !== null && jsonData.firstName !== undefined;\ntests[\"lastName not null\"] = jsonData.lastName !== null && jsonData.lastName !== undefined;\ntests[\"email not null\"] = jsonData.email !== null && jsonData.email !== undefined;\ntests[\"phoneNumber not null\"] = jsonData.phoneNumber !== null && jsonData.phoneNumber !== undefined;\ntests[\"companyName not null\"] = jsonData.companyName !== null && jsonData.companyName !== undefined;",
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\t\"firstName\": \"{{firstName}}\",\n\t\"lastName\": \"{{lastName}}\",\n\t\"email\": \"{{email2}}\",\n\t\"phoneNumber\": \"{{phoneNumber}}\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
@@ -538,22 +577,11 @@
 			],
 			"url": "{{URL}}/v1/accounts",
 			"queryParams": [],
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"time": 1512016671332,
-			"name": "Post Moodle Accounts Repeat",
-			"description": "Moodle Users Resources",
-			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
-			"responses": [],
-			"auth": null,
 			"events": [
 				{
 					"listen": "prerequest",
 					"script": {
+						"id": "763aaad7-d2e5-457c-83ac-04dc03d67b0c",
 						"type": "text/javascript",
 						"exec": [
 							"var randomClient = Math.random().toString(36).slice(2)",
@@ -566,9 +594,10 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "c8649afe-90d4-4ebf-ab97-382db66bcd43",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"Status code is 201\"] = responseCode.code === 201;",
+							"tests[\"Status code is 409\"] = responseCode.code === 409;",
 							"",
 							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
 							""
@@ -576,8 +605,20 @@
 					}
 				}
 			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1517289570520,
+			"name": "Post Moodle Accounts Repeat",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
 			"preRequestScript": "var randomClient = Math.random().toString(36).slice(2)\n\npostman.setGlobalVariable(\"randomClient\",randomClient);\n",
-			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
+			"tests": "tests[\"Status code is 409\"] = responseCode.code === 409;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\t\"firstName\": \"{{firstName}}\",\n\t\"lastName\": \"{{lastName}}\",\n\t\"email\": \"{{email1}}\",\n\t\"phoneNumber\": \"{{phoneNumber}}\",\n\t\"companyName\": \"{{randomClient}}\"\n\t\n}\n"
@@ -610,6 +651,52 @@
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\t\n}\n"
+		},
+		{
+			"id": "cb902a46-a292-178e-76fc-8525398f2acd",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/v1/accounts/{{id}}",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d72e6dd3-7c5f-47a9-8f62-a1f18750ecb2",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							""
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1517288117695,
+			"name": "Get Accounts/:id",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": ""
 		},
 		{
 			"id": "d898d6d5-d7d6-398c-d143-b1ef51b48bc6",
@@ -805,6 +892,52 @@
 			],
 			"preRequestScript": null,
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\nconsole.log(\"get response \")\nvar jsonData = JSON.parse(responseBody);\n\nconsole.log(\"get first response \")\n\naccount = jsonData;\ntests[\"Id is correct\"] = account.id !== null && account.id !== undefined;\ntests[\"firstName correct\"] = account.firstName === globals.firstName;\ntests[\"lastName correct\"] = account.lastName === globals.lastName;\ntests[\"email correct\"] = account.email === globals.email2;\ntests[\"phoneNumber correct\"] = account.phoneNumber === globals.phoneNumber\ntests[\"companyName correct\"] = account.companyName === globals.randomClient;",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": ""
+		},
+		{
+			"id": "eb2a1330-5270-220e-8503-38ccb16795c6",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/v1/accounts/{{id}}",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ec80a149-7b71-4c05-8bf4-6838d4baec40",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 404\"] = responseCode.code === 404;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							""
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1517288204828,
+			"name": "Account Not Found",
+			"description": "Moodle Users Resources",
+			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 404\"] = responseCode.code === 404;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": ""

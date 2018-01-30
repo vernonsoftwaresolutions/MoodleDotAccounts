@@ -39,8 +39,14 @@ public class AccountsRespositoryImpl implements AccountsRepository {
     }
 
     @Override
-    public Account getAccount(String email) {
-        return dynamoDBMapper.load(Account.class, email);
+    public Optional<Account> getAccount(String email) {
+        Account account =  dynamoDBMapper.load(Account.class, email);
+
+        if(account == null){
+            return Optional.empty();
+        }
+
+        return Optional.of(account);
 
     }
 
@@ -63,5 +69,10 @@ public class AccountsRespositoryImpl implements AccountsRepository {
             return Optional.empty();
         }
         return Optional.of(accountList.get(0));
+    }
+
+    @Override
+    public void deleteAccount(Account account) {
+        dynamoDBMapper.delete(account);
     }
 }
