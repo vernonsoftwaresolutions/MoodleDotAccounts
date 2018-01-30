@@ -377,7 +377,7 @@
 			"dataMode": "raw",
 			"version": 2,
 			"auth": null,
-			"time": 1517289623204,
+			"time": 1517290816823,
 			"name": "Get Accounts/:id 2",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
@@ -386,7 +386,7 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
 			"currentHelper": null,
 			"helperAttributes": null,
-			"rawModeData": ""
+			"rawModeData": "{\n\t\"email\": {{email2}}\n}"
 		},
 		{
 			"id": "8674d92b-0513-0538-c921-f42c3377469e",
@@ -687,7 +687,7 @@
 			"dataMode": "raw",
 			"version": 2,
 			"auth": null,
-			"time": 1517288117695,
+			"time": 1517290794746,
 			"name": "Get Accounts/:id",
 			"description": "Moodle Users Resources",
 			"collectionId": "56b7dd09-f629-255c-c341-a1bd3f008a36",
@@ -696,7 +696,7 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n",
 			"currentHelper": null,
 			"helperAttributes": null,
-			"rawModeData": ""
+			"rawModeData": "{\n\t\"email\": {{email1}}\n}"
 		},
 		{
 			"id": "d898d6d5-d7d6-398c-d143-b1ef51b48bc6",

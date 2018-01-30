@@ -270,7 +270,7 @@ public class AccountControllerTest {
     @Test
     public void deleteAccount200() throws Exception {
 
-        assertEquals(accountController.deleteAccount(id).getStatusCode(), HttpStatus.OK);
+        assertEquals(accountController.deleteAccount(id, new AccountDTO()).getStatusCode(), HttpStatus.OK);
 
     }
 

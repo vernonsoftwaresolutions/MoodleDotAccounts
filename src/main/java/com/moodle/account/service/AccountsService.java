@@ -43,7 +43,7 @@ public class AccountsService {
         }
         //first save the account into the account database
         log.info("Saving account to db");
-        Account savedAccount = accountsRepository.save(createaccount(account));
+        Account savedAccount = accountsRepository.save(createAccount(account));
         return savedAccount;
 
 
@@ -64,10 +64,10 @@ public class AccountsService {
 
     /**
      * Method to delete account by account id
-     * @param id
+     * @param dto
      */
-    public void deleteAccount(String id){
-        Account account = new Account();
+    public void deleteAccount(AccountDTO dto, String id){
+        Account account = createAccount(dto);
         account.setId(id);
         accountsRepository.deleteAccount(account);
     }
@@ -77,7 +77,7 @@ public class AccountsService {
      * @param accountDTO
      * @return
      */
-    private Account createaccount(AccountDTO accountDTO){
+    private Account createAccount(AccountDTO accountDTO){
         Account account = new Account();
         account.setFirstName(accountDTO.getFirstName());
         account.setLastName(accountDTO.getLastName());

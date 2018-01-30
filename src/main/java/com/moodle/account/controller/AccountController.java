@@ -136,13 +136,13 @@ public class AccountController {
 
     }
     @DeleteMapping(path = "/v1/accounts/{id}")
-    public ResponseEntity deleteAccount(@PathVariable("id") String id) {
+    public ResponseEntity deleteAccount(@PathVariable("id") String id, @RequestBody AccountDTO account) {
         try {
 
-            log.debug("Request received to delete account by id {} ", id);
+            log.debug("Request received to delete account by id {} and account {}", id, account);
 
             //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
-            accountsService.deleteAccount(id);
+            accountsService.deleteAccount(account, id);
             //return
             return new ResponseEntity(HttpStatus.OK.getReasonPhrase(), getCorsHeaders(), HttpStatus.OK);
         }
