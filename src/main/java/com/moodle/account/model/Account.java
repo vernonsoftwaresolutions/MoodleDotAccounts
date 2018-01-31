@@ -17,6 +17,15 @@ public class Account {
     private String email;
     private String phoneNumber;
     private String companyName;
+    private String location;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getId() {
         return id;
