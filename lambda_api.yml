@@ -333,7 +333,8 @@ Resources:
     Type: AWS::Cognito::UserPool
     Properties:
       UserPoolName: !Sub ${Stage}_${PoolName}
-      AliasAttributes: email
+      AliasAttributes:
+        - email
   MoodleDotComCognitoUserPoolClient:
     Type: AWS::Cognito::UserPoolClient
     Properties:
