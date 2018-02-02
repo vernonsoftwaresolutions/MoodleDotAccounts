@@ -9,6 +9,7 @@ public class AccountDTO {
     private String email;
     private String phoneNumber;
     private String companyName;
+    private String location;
 
     public String getFirstName() {
         return firstName;
@@ -50,15 +51,23 @@ public class AccountDTO {
         this.companyName = companyName;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     @Override
     public String toString() {
-        return "accountDTO{" +
+        return "AccountDTO{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", companyName='" + companyName + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 }

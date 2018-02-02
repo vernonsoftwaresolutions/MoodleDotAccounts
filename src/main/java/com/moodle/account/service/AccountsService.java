@@ -84,6 +84,7 @@ public class AccountsService {
         account.setEmail(accountDTO.getEmail());
         account.setPhoneNumber(accountDTO.getPhoneNumber());
         account.setCompanyName(accountDTO.getCompanyName());
+        account.setLastName(accountDTO.getLocation());
         return account;
     }
 
