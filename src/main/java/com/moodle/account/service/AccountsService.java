@@ -42,7 +42,7 @@ public class AccountsService {
             throw new IllegalStateException("Account exists for email");
         }
         //first save the account into the account database
-        log.info("Saving account to db");
+        log.info("Saving account to db {}", account);
         Account savedAccount = accountsRepository.save(createAccount(account));
         return savedAccount;
 
@@ -84,7 +84,7 @@ public class AccountsService {
         account.setEmail(accountDTO.getEmail());
         account.setPhoneNumber(accountDTO.getPhoneNumber());
         account.setCompanyName(accountDTO.getCompanyName());
-        account.setLastName(accountDTO.getLocation());
+        account.setLocation(accountDTO.getLocation());
         return account;
     }
 
