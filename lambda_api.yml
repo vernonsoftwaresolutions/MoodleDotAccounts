@@ -90,7 +90,6 @@ Resources:
     Properties:
       Type: COGNITO_USER_POOLS
       AuthorizerResultTtlInSeconds: 300
-      Type: "TOKEN"
       IdentitySource: method.request.header.Authorization
       Name: MoodleAuthorizer
       RestApiId:
