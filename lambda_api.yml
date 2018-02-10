@@ -95,7 +95,8 @@ Resources:
       Name: MoodleAuthorizer
       RestApiId:
         Ref: ApiGateway
-      ProviderARNs: !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${UserPoolId}
+      ProviderARNs:
+      - !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${UserPoolId}
 
   #API Gateway definition
   ApiGateway:
