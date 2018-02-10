@@ -25,5 +25,5 @@ echo "Deploying assets"
 aws cloudformation deploy --template-file \
     lambda_api_output.yaml --capabilities CAPABILITY_IAM \
     --stack-name ${API_NAME}  --parameter-overrides \
-    DNSName=${DNSNAME} HostedZoneName=${HOSTEDZONENAME} TableBaseName=${DYNAMO_TABLE} Stage=${ENV} USER_POOL_ID=${USER_POOL_ID}
+    DNSName=${DNSNAME} HostedZoneName=${HOSTEDZONENAME} TableBaseName=${DYNAMO_TABLE} Stage=${ENV} UserPoolId=${USER_POOL_ID}
 
