@@ -25,10 +25,9 @@ Parameters:
     Default: dev
     Description: Stage that can be added to resource names
 
-  PoolName:
+  UserPoolId:
     Type: String
-    Default: MoodleDotCognitoPool
-    Description: Moodle Dot Com Cognito Pool name
+    Description: Id of user pool
 
 Resources:
 
@@ -95,6 +94,14 @@ Resources:
         swagger: 2.0
         info:
           title: !Ref AWS::StackName
+        securityDefinitions:
+          MoodleAuthorizer:
+            type: COGNITO_USER_POOLS
+            name: Authorization
+            in: header
+            providerARNs:
+              - !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${UserPoolId}
+            identitySource: method.request.header.Authorization
         basePath: /prod
         schemes:
         - https
@@ -325,22 +332,7 @@ Resources:
             ReadCapacityUnits: 1
             WriteCapacityUnits: 1
       TableName: !Sub ${TableBaseName}_${Stage}
-#############################################
-##  AWS Cognito definition
-##
-#############################################
-  MoodleDotComCognitoPool:
-    Type: AWS::Cognito::UserPool
-    Properties:
-      UserPoolName: !Sub ${Stage}_${PoolName}
-      AliasAttributes:
-        - email
-  MoodleDotComCognitoUserPoolClient:
-    Type: AWS::Cognito::UserPoolClient
-    Properties:
-      ClientName: MoodleDotCom
-      UserPoolId:
-        Ref: MoodleDotComCognitoPool
+
 
 
 #output
