@@ -3,6 +3,14 @@ swagger: 2.0
 info:
   title: MoodleDotAccounts
 basePath: /prod
+securityDefinitions:
+  MoodleAuthorizer:
+    type: COGNITO_USER_POOLS
+    name: Authorization
+    in: header
+    providerARNs:
+      - !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${UserPoolId}
+    identitySource: method.request.header.Authorization
 schemes:
 - https
 paths:
@@ -19,8 +27,7 @@ paths:
         responses:
           default:
             statusCode: 200
-            #todo-remove hardcoded accountid.  Probably want to move entire uri definition to stage variable?
-        uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:417615409974:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations
+        uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:${AWS::AccountId}:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations
         passthroughBehavior: when_no_match
         httpMethod: POST
         type: aws_proxy
