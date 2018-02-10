@@ -85,6 +85,18 @@ Resources:
             Path: /{proxy+}
             Method: ANY
 
+  MoodleAuthorizer:
+    Type: AWS::ApiGateway::Authorizer
+    Properties:
+      Type: COGNITO_USER_POOLS
+      AuthorizerResultTtlInSeconds: 300
+      Type: "TOKEN"
+      IdentitySource: method.request.header.Authorization
+      Name: MoodleAuthorizer
+      RestApiId:
+        Ref: ApiGateway
+      ProviderARNs: !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${UserPoolId}
+
   #API Gateway definition
   ApiGateway:
     Type: AWS::Serverless::Api
@@ -94,14 +106,6 @@ Resources:
         swagger: 2.0
         info:
           title: !Ref AWS::StackName
-        securityDefinitions:
-          MoodleAuthorizer:
-            type: COGNITO_USER_POOLS
-            name: Authorization
-            in: header
-            providerARNs:
-              - !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${UserPoolId}
-            identitySource: method.request.header.Authorization
         basePath: /prod
         schemes:
         - https
@@ -356,3 +360,7 @@ Outputs:
     Value: !GetAtt AccountsHandlerVersion.Version
     Export:
       Name: !Sub AccountsHandlerVersion-${Stage}
+  MoodleAuthorizer:
+    Value: !Ref MoodleAuthorizer
+    Export:
+      Name: !Sub MoodleAuthorizer-${Stage}
