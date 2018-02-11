@@ -1,4 +1,6 @@
 # Moodle Accounts API [![CircleCI](https://circleci.com/gh/vernonsoftwaresolutions/MoodleDotAccounts.svg?style=svg)](https://circleci.com/gh/vernonsoftwaresolutions/MoodleDotAccounts)
+
+##TODO- Currently authorizer's are being added manually.  Need to open a ticket with awslabs to figure out why i can't add it to the API through CloudFormation
 A basic Accounts RESTful API written with the [Spring framework](https://projects.spring.io/spring-framework/). The `LambdaHandler` object is the main entry point for Lambda.
 
 The application uses the [Serverless Application Model](https://github.com/awslabs/serverless-application-model) for deployment. 
