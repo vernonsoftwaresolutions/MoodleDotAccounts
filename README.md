@@ -1,4 +1,4 @@
-# Serverless Spring example [![CircleCI](https://circleci.com/gh/vernonsoftwaresolutions/MoodleDotAccounts.svg?style=svg)](https://circleci.com/gh/vernonsoftwaresolutions/MoodleDotAccounts)
+# Moodle Accounts API [![CircleCI](https://circleci.com/gh/vernonsoftwaresolutions/MoodleDotAccounts.svg?style=svg)](https://circleci.com/gh/vernonsoftwaresolutions/MoodleDotAccounts)
 A basic Accounts RESTful API written with the [Spring framework](https://projects.spring.io/spring-framework/). The `LambdaHandler` object is the main entry point for Lambda.
 
 The application uses the [Serverless Application Model](https://github.com/awslabs/serverless-application-model) for deployment. 
