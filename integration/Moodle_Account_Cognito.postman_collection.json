@@ -1,0 +1,93 @@
+{
+	"id": "236b3af7-7ad3-fca3-c77e-eb0843d3092f",
+	"name": "Moodle_Account_Cognito",
+	"description": "",
+	"order": [
+		"d95e9505-d295-36ad-af4e-1e71056f57b0"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1518407529840,
+	"owner": "837563",
+	"public": false,
+	"events": [],
+	"variables": [],
+	"auth": null,
+	"requests": [
+		{
+			"id": "d95e9505-d295-36ad-af4e-1e71056f57b0",
+			"headers": "Content-Type: application/json\nAuthorization: {{AUTHORIZATION}}\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "{{AUTHORIZATION}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/v1/accounts?accessToken={{ACCESS_TOKEN}}",
+			"queryParams": [
+				{
+					"key": "accessToken",
+					"value": "{{ACCESS_TOKEN}}",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64f3b01d-9cb7-4caf-8d22-4c125f0fff71",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");",
+							"",
+							"",
+							"",
+							"console.log(\"get response \")",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"console.log(\"get first response \")",
+							"",
+							"account = jsonData;",
+							"tests[\"Id is not null\"] = account.id !== null && account.id !== undefined;",
+							"tests[\"firstName not null\"] = account.firstName === globals.firstName;",
+							"tests[\"lastName not null\"] = account.lastName === globals.lastName;",
+							"tests[\"email not null\"] = account.email === globals.email1;",
+							"tests[\"phoneNumber not null\"] = account.phoneNumber === globals.phoneNumber",
+							"tests[\"companyName not null\"] = account.companyName === globals.randomClient;",
+							"tests[\"location not null\"] = account.location === globals.location;"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1518407660694,
+			"name": "GET accounts?accessToken",
+			"description": "Moodle Users Resources",
+			"collectionId": "236b3af7-7ad3-fca3-c77e-eb0843d3092f",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\nconsole.log(\"get response \")\nvar jsonData = JSON.parse(responseBody);\n\nconsole.log(\"get first response \")\n\naccount = jsonData;\ntests[\"Id is not null\"] = account.id !== null && account.id !== undefined;\ntests[\"firstName not null\"] = account.firstName === globals.firstName;\ntests[\"lastName not null\"] = account.lastName === globals.lastName;\ntests[\"email not null\"] = account.email === globals.email1;\ntests[\"phoneNumber not null\"] = account.phoneNumber === globals.phoneNumber\ntests[\"companyName not null\"] = account.companyName === globals.randomClient;\ntests[\"location not null\"] = account.location === globals.location;",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": ""
+		}
+	]
+}
