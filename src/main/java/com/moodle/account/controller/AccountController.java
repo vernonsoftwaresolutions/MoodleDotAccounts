@@ -12,6 +12,7 @@
  */
 package com.moodle.account.controller;
 
+import com.amazonaws.services.cognitoidp.model.NotAuthorizedException;
 import com.moodle.account.model.Error;
 import com.moodle.account.model.Account;
 import com.moodle.account.model.AccountDTO;
@@ -61,6 +62,7 @@ public class AccountController {
             //return success
             return new ResponseEntity(savedAccount, getCorsHeaders(), HttpStatus.CREATED);
         }
+
         catch (IllegalStateException e){
             log.error("Error processing request ", e);
             return new ResponseEntity(new Error(e.getMessage()),
@@ -103,28 +105,32 @@ public class AccountController {
     public ResponseEntity getAccountByCode(@RequestParam("code") Optional<String> code) {
         try {
 
-            if(!code.isPresent()){
+            if (!code.isPresent()) {
                 return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())
                         , getCorsHeaders(), HttpStatus.NOT_FOUND);
             }
             //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
             Optional<Account> account = accountsService.getAccountByCode(code.get());
             log.info("Fetched account {} ", account);
-            if(!account.isPresent()){
+            if (!account.isPresent()) {
                 return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())
                         , getCorsHeaders(), HttpStatus.NOT_FOUND);
 
             }
             //return
             return new ResponseEntity(account.get(), getCorsHeaders(), HttpStatus.OK);
-        }
-        catch (Exception e){
+        } catch (NotAuthorizedException e) {
+            log.error("Error processing request ", e);
+            return new ResponseEntity(new Error(e.getMessage()),
+                    getCorsHeaders(), HttpStatus.UNAUTHORIZED);
+        } catch (Exception e) {
             log.error("Error processing request ", e);
             return new ResponseEntity(new Error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()),
                     getCorsHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
+
     @DeleteMapping(path = "/v1/accounts/{id}")
     public ResponseEntity deleteAccount(@PathVariable("id") String id, @RequestBody AccountDTO account) {
         try {

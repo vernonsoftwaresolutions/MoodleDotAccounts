@@ -1,6 +1,7 @@
 package com.moodle.account.controller;
 
 
+import com.amazonaws.services.cognitoidp.model.NotAuthorizedException;
 import com.moodle.account.model.Error;
 import com.moodle.account.model.Account;
 import com.moodle.account.model.AccountDTO;
@@ -182,5 +183,10 @@ public class AccountControllerTest {
     public void getAccountByCode500() throws Exception {
         given(service.getAccountByCode(accessToken)).willThrow(new RuntimeException());
         assertThat(accountController.getAccountByCode(Optional.of(accessToken)).getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+    @Test
+    public void getAccountByCode401() throws Exception {
+        given(service.getAccountByCode(accessToken)).willThrow(new NotAuthorizedException(""));
+        assertThat(accountController.getAccountByCode(Optional.of(accessToken)).getStatusCode(), is(HttpStatus.UNAUTHORIZED));
     }
 }
