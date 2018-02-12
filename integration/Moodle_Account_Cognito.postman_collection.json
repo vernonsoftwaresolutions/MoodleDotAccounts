@@ -16,7 +16,7 @@
 	"requests": [
 		{
 			"id": "d95e9505-d295-36ad-af4e-1e71056f57b0",
-			"headers": "Content-Type: application/json\nAuthorization: {{AUTHORIZATION}}\n",
+			"headers": "Content-Type: application/json\nAuthorization: eyJraWQiOiIzblRYNm5mNHRwakJUNm4zWHpEUytrajhRSXVmMWlCWThpZmZ2YmFWRkFvPSIsImFsZyI6IlJTMjU2In0.eyJhdF9oYXNoIjoiV3dtdDBrZE1FY0l5d0FsUkk3djRTZyIsInN1YiI6IjZhODkyNzY3LWU4Y2UtNGE1Yy1iMzI2LTE2ODYxYjAwYmY1ZCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhZGRyZXNzIjp7ImZvcm1hdHRlZCI6IjEwMjUgd2FzaGluZ3RvbiBhdmUgUyJ9LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9zU3BSa0szaUgiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiTWlrZXkiLCJhdWQiOiI2aDhuZWV2YWo4dWQ4Z2FsMjM2NjcxaTFtNiIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTE4NDA4ODEwLCJuYW1lIjoiQW5kcmV3IExhcnNlbiIsInBob25lX251bWJlciI6IiszMTQ2MDE0OTMyIiwiZXhwIjoxNTE4NDEyNDEwLCJpYXQiOjE1MTg0MDg4MTAsImVtYWlsIjoiYW5kcmV3LmxhcnNlNTE0QGdtYWlsLmNvbSJ9.h6bCl002OnwAoDeVFFLK1YNTJ6ywn6hbSSIQvA1ecqGN0AoqfMXQIXJI52Xw2Hb5WoPqFGv0IPzVPpiVJEIpYgLCpHQypZV29sjTe5wcSpPzRBCf8L-zLy18vPLCFGDg5lFZyGzk9IUANqIl1Qc9KVEbuFDVWI29XtLxWXLLK7bImyAppHUS06mbLyoMuWIwrsankBrisK51hgI2Wix4wTzYYL4gvttgOJFQC-ItKisXFbIOJHrkYQRV74NY9JWJHkuKowFBzVjNjkwjFoXchwdgBsgZdBSjmIWvf7VayA-KtIVnXGvC04N2iSybjec2V9p37Y_3zVK6RLrUaWh-Xw\n",
 			"headerData": [
 				{
 					"key": "Content-Type",
@@ -26,16 +26,16 @@
 				},
 				{
 					"key": "Authorization",
-					"value": "{{AUTHORIZATION}}",
+					"value": "eyJraWQiOiIzblRYNm5mNHRwakJUNm4zWHpEUytrajhRSXVmMWlCWThpZmZ2YmFWRkFvPSIsImFsZyI6IlJTMjU2In0.eyJhdF9oYXNoIjoiV3dtdDBrZE1FY0l5d0FsUkk3djRTZyIsInN1YiI6IjZhODkyNzY3LWU4Y2UtNGE1Yy1iMzI2LTE2ODYxYjAwYmY1ZCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhZGRyZXNzIjp7ImZvcm1hdHRlZCI6IjEwMjUgd2FzaGluZ3RvbiBhdmUgUyJ9LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9zU3BSa0szaUgiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiTWlrZXkiLCJhdWQiOiI2aDhuZWV2YWo4dWQ4Z2FsMjM2NjcxaTFtNiIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTE4NDA4ODEwLCJuYW1lIjoiQW5kcmV3IExhcnNlbiIsInBob25lX251bWJlciI6IiszMTQ2MDE0OTMyIiwiZXhwIjoxNTE4NDEyNDEwLCJpYXQiOjE1MTg0MDg4MTAsImVtYWlsIjoiYW5kcmV3LmxhcnNlNTE0QGdtYWlsLmNvbSJ9.h6bCl002OnwAoDeVFFLK1YNTJ6ywn6hbSSIQvA1ecqGN0AoqfMXQIXJI52Xw2Hb5WoPqFGv0IPzVPpiVJEIpYgLCpHQypZV29sjTe5wcSpPzRBCf8L-zLy18vPLCFGDg5lFZyGzk9IUANqIl1Qc9KVEbuFDVWI29XtLxWXLLK7bImyAppHUS06mbLyoMuWIwrsankBrisK51hgI2Wix4wTzYYL4gvttgOJFQC-ItKisXFbIOJHrkYQRV74NY9JWJHkuKowFBzVjNjkwjFoXchwdgBsgZdBSjmIWvf7VayA-KtIVnXGvC04N2iSybjec2V9p37Y_3zVK6RLrUaWh-Xw",
 					"description": "",
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/v1/accounts?accessToken={{ACCESS_TOKEN}}",
+			"url": "{{URL}}/v1/accounts?accessToken=eyJraWQiOiJxU2xYUDFEYmJ2eXJkOEdraGJObFRQOGtJRDgwQmJGd2EwZUhCbUhONGljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI2YTg5Mjc2Ny1lOGNlLTRhNWMtYjMyNi0xNjg2MWIwMGJmNWQiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIHBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfc1NwUmtLM2lIIiwiZXhwIjoxNTE4NDEyNDEwLCJpYXQiOjE1MTg0MDg4MTAsInZlcnNpb24iOjIsImp0aSI6IjU4ZmNhNmMzLTMyNzMtNDVkMy04M2RjLTMyNGE1YTAzYmJlNCIsImNsaWVudF9pZCI6IjZoOG5lZXZhajh1ZDhnYWwyMzY2NzFpMW02IiwidXNlcm5hbWUiOiJNaWtleSJ9.LEY2PlQRQt3qgO9lF6LabIQtCIrUThlV_jpVOF3N47Dj4xqWhEbhgWErRdH2plTHTf5eH2mLLjWqWe_PPKsTuJG6Vx_Nmre_Ukv6RKqL4We71JC8XrWU49tZb4AsJT_YM4C1hFC-eQKitw7DikHXypfTkdFfsoRbT-F-viYZttDaHpSwUPkCNE6084zVTxwMxyFLYsj1vsHCOYSdER15XXkw3SLFdB2vvK4pQRJ639rxp_BwlgqBwwNT-HKAB5lKxbBGPoR6PNGCQO-AIL-t_8HeTBWhKLAwbQ8CNw-0ogVqA_2JkTcB_bXvc3hCnhGCqIoXwTYpCFflnc-G1pdu7g",
 			"queryParams": [
 				{
 					"key": "accessToken",
-					"value": "{{ACCESS_TOKEN}}",
+					"value": "eyJraWQiOiJxU2xYUDFEYmJ2eXJkOEdraGJObFRQOGtJRDgwQmJGd2EwZUhCbUhONGljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI2YTg5Mjc2Ny1lOGNlLTRhNWMtYjMyNi0xNjg2MWIwMGJmNWQiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIHBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfc1NwUmtLM2lIIiwiZXhwIjoxNTE4NDEyNDEwLCJpYXQiOjE1MTg0MDg4MTAsInZlcnNpb24iOjIsImp0aSI6IjU4ZmNhNmMzLTMyNzMtNDVkMy04M2RjLTMyNGE1YTAzYmJlNCIsImNsaWVudF9pZCI6IjZoOG5lZXZhajh1ZDhnYWwyMzY2NzFpMW02IiwidXNlcm5hbWUiOiJNaWtleSJ9.LEY2PlQRQt3qgO9lF6LabIQtCIrUThlV_jpVOF3N47Dj4xqWhEbhgWErRdH2plTHTf5eH2mLLjWqWe_PPKsTuJG6Vx_Nmre_Ukv6RKqL4We71JC8XrWU49tZb4AsJT_YM4C1hFC-eQKitw7DikHXypfTkdFfsoRbT-F-viYZttDaHpSwUPkCNE6084zVTxwMxyFLYsj1vsHCOYSdER15XXkw3SLFdB2vvK4pQRJ639rxp_BwlgqBwwNT-HKAB5lKxbBGPoR6PNGCQO-AIL-t_8HeTBWhKLAwbQ8CNw-0ogVqA_2JkTcB_bXvc3hCnhGCqIoXwTYpCFflnc-G1pdu7g",
 					"equals": true,
 					"description": "",
 					"enabled": true
@@ -45,7 +45,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "64f3b01d-9cb7-4caf-8d22-4c125f0fff71",
+						"id": "4a672ba0-7dfd-43d5-85f9-aa6ee39eb116",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
@@ -60,13 +60,12 @@
 							"console.log(\"get first response \")",
 							"",
 							"account = jsonData;",
-							"tests[\"Id is not null\"] = account.id !== null && account.id !== undefined;",
-							"tests[\"firstName not null\"] = account.firstName === globals.firstName;",
-							"tests[\"lastName not null\"] = account.lastName === globals.lastName;",
-							"tests[\"email not null\"] = account.email === globals.email1;",
-							"tests[\"phoneNumber not null\"] = account.phoneNumber === globals.phoneNumber",
-							"tests[\"companyName not null\"] = account.companyName === globals.randomClient;",
-							"tests[\"location not null\"] = account.location === globals.location;"
+							"tests[\"name is not null\"] = account.name !== null && account.name !== undefined;",
+							"tests[\"email is not null\"] = account.email !== null && account.email !== undefined;",
+							"tests[\"phoneNumber is not null\"] = account.phoneNumber !== null && account.phoneNumber !== undefined;",
+							"tests[\"address is not null\"] = account.address !== null && account.address !== undefined;",
+							"tests[\"userName is not null\"] = account.userName !== null && account.userName !== undefined;",
+							""
 						]
 					}
 				}
@@ -78,13 +77,13 @@
 			"dataMode": "raw",
 			"version": 2,
 			"auth": null,
-			"time": 1518407660694,
+			"time": 1518408905945,
 			"name": "GET accounts?accessToken",
 			"description": "Moodle Users Resources",
 			"collectionId": "236b3af7-7ad3-fca3-c77e-eb0843d3092f",
 			"responses": [],
 			"preRequestScript": null,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\nconsole.log(\"get response \")\nvar jsonData = JSON.parse(responseBody);\n\nconsole.log(\"get first response \")\n\naccount = jsonData;\ntests[\"Id is not null\"] = account.id !== null && account.id !== undefined;\ntests[\"firstName not null\"] = account.firstName === globals.firstName;\ntests[\"lastName not null\"] = account.lastName === globals.lastName;\ntests[\"email not null\"] = account.email === globals.email1;\ntests[\"phoneNumber not null\"] = account.phoneNumber === globals.phoneNumber\ntests[\"companyName not null\"] = account.companyName === globals.randomClient;\ntests[\"location not null\"] = account.location === globals.location;",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Access-Control-Allow-Origin is present\"] = postman.getResponseHeader(\"Access-Control-Allow-Origin\");\n\n\n\nconsole.log(\"get response \")\nvar jsonData = JSON.parse(responseBody);\n\nconsole.log(\"get first response \")\n\naccount = jsonData;\ntests[\"name is not null\"] = account.name !== null && account.name !== undefined;\ntests[\"email is not null\"] = account.email !== null && account.email !== undefined;\ntests[\"phoneNumber is not null\"] = account.phoneNumber !== null && account.phoneNumber !== undefined;\ntests[\"address is not null\"] = account.address !== null && account.address !== undefined;\ntests[\"userName is not null\"] = account.userName !== null && account.userName !== undefined;\n",
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": ""
