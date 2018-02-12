@@ -4,27 +4,27 @@ package com.moodle.account.model;
  * Created by andrewlarsen on 11/4/17.
  */
 public class AccountDTO {
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String userName;
     private String email;
     private String phoneNumber;
     private String companyName;
-    private String location;
+    private String address;
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -51,23 +51,23 @@ public class AccountDTO {
         this.companyName = companyName;
     }
 
-    public String getLocation() {
-        return location;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
     public String toString() {
         return "AccountDTO{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "name='" + name + '\'' +
+                ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", companyName='" + companyName + '\'' +
-                ", location='" + location + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

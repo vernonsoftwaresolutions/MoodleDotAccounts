@@ -43,27 +43,19 @@ public class AccountController {
     }
 
     @PostMapping(path = "/v1/accounts")
-    public ResponseEntity createAccount(@RequestBody AccountDTO account) {
+    public ResponseEntity createAccount(@RequestHeader("Access") String accessToken) {
         try {
-            if(account == null){
+
+            if(accessToken == null){
                 //if either don't exist send unprocessable entity request
                 log.warn("Null account, returning error");
 
                 return new ResponseEntity(new Error(ERROR), getCorsHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
             }
-            log.debug("Received request {}", account);
-
-            //check to ensure first and last name exist
-            if (account.getFirstName() == null || account.getLastName() == null || account.getCompanyName() == null) {
-
-                //if either don't exist send unprocessable entity request
-                log.warn("First or Last name missing form request, returning 4XX error");
-
-                return new ResponseEntity(new Error(ERROR), getCorsHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
-            }
+            log.debug("Received request {}", accessToken);
 
             //Save account
-            Account savedAccount = accountsService.save(account);
+            Account savedAccount = accountsService.save(accessToken);
 
             log.info("New account created {} returning", savedAccount);
             //return success
@@ -119,6 +111,32 @@ public class AccountController {
 
             //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
             Optional<Account> account = accountsService.getAccountById(id);
+            log.info("Fetched account {} ", account);
+            if(!account.isPresent()){
+                return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                        , getCorsHeaders(), HttpStatus.NOT_FOUND);
+
+            }
+            //return
+            return new ResponseEntity(account.get(), getCorsHeaders(), HttpStatus.OK);
+        }
+        catch (Exception e){
+            log.error("Error processing request ", e);
+            return new ResponseEntity(new Error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()),
+                    getCorsHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @GetMapping(path = "/v1/accounts")
+    public ResponseEntity getAccountByCode(@RequestParam("code") Optional<String> code) {
+        try {
+
+            if(!code.isPresent()){
+                return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                        , getCorsHeaders(), HttpStatus.NOT_FOUND);
+            }
+            //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
+            Optional<Account> account = accountsService.getAccountByCode(code.get());
             log.info("Fetched account {} ", account);
             if(!account.isPresent()){
                 return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())

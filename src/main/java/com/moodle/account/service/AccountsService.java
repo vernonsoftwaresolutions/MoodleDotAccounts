@@ -1,5 +1,6 @@
 package com.moodle.account.service;
 
+import com.moodle.account.aws.CognitoClient;
 import com.moodle.account.client.MoodleTenantClient;
 import com.moodle.account.factory.MoodleSiteRequestFactory;
 import com.moodle.account.model.Account;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 
@@ -23,12 +23,13 @@ public class AccountsService {
     private Logger log = LoggerFactory.getLogger(AccountsService.class);
 
     private AccountsRepository accountsRepository;
+    private CognitoClient client;
 
     @Autowired
-    public AccountsService(AccountsRepository accountsRepository) {
+    public AccountsService(AccountsRepository accountsRepository, CognitoClient client) {
         this.accountsRepository = accountsRepository;
+        this.client = client;
     }
-
 
     /**
      * Method to save account to backend persistence
@@ -50,6 +51,25 @@ public class AccountsService {
     }
 
     /**
+     * Save account after parsing out accessToken
+     * @param accessToken
+     * @return
+     */
+    public Account save(String accessToken){
+        AccountDTO accountDTO = client.getUser(accessToken);
+
+        //check if account exists for email
+        if(accountsRepository.getAccount(accountDTO.getEmail()).isPresent()) {
+            log.info("Account already exists for given email");
+            throw new IllegalStateException("Account exists for email");
+        }
+        //first save the account into the account database
+        log.info("Saving account to db {}", accountDTO);
+        Account savedAccount = accountsRepository.save(createAccount(accountDTO));
+        return savedAccount;
+    }
+
+    /**
      * Method to retrieve accounts by email
      * @param email
      * @return
@@ -62,6 +82,22 @@ public class AccountsService {
         return accountsRepository.getAccountById(id);
     }
 
+    /**
+     * Method to retrieve account by code
+     * @param code
+     * @return
+     */
+    public Optional<Account> getAccountByCode(String code){
+
+        AccountDTO accountDTO = client.getUser(code);
+        if(accountDTO == null){
+            return Optional.empty();
+        }
+        log.debug("Returned account {}", accountDTO);
+        Account account = createAccount(accountDTO);
+        log.debug("Converted to account {} ", account);
+        return Optional.of(account);
+    }
     /**
      * Method to delete account by account id
      * @param dto
@@ -79,12 +115,12 @@ public class AccountsService {
      */
     private Account createAccount(AccountDTO accountDTO){
         Account account = new Account();
-        account.setFirstName(accountDTO.getFirstName());
-        account.setLastName(accountDTO.getLastName());
+        account.setName(accountDTO.getName());
+        account.setUserName(accountDTO.getUserName());
         account.setEmail(accountDTO.getEmail());
         account.setPhoneNumber(accountDTO.getPhoneNumber());
         account.setCompanyName(accountDTO.getCompanyName());
-        account.setLocation(accountDTO.getLocation());
+        account.setAddress(accountDTO.getAddress());
         return account;
     }
 

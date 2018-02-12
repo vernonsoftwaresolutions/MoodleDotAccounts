@@ -1,0 +1,17 @@
+{
+  "address": "{\"formatted\":\"1025 washington ave S\"}",
+  "at_hash": "Qxpc8U0cG0h0pJPIskp7Lw",
+  "aud": "6h8neevaj8ud8gal236671i1m6",
+  "auth_time": "1518386507",
+  "cognito:username": "larse514",
+  "email": "alars84@gmail.com",
+  "email_verified": "true",
+  "exp": "Sun Feb 11 23:01:47 UTC 2018",
+  "iat": "Sun Feb 11 22:01:47 UTC 2018",
+  "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_sSpRkK3iH",
+  "name": "Andrew Larsen",
+  "phone_number": "+6514898304",
+  "phone_number_verified": "false",
+  "sub": "8487d853-9259-4187-87ce-33b8554c34e1",
+  "token_use": "id"
+}

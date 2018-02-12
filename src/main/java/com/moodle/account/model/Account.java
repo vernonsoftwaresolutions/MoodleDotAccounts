@@ -11,21 +11,14 @@ public class Account {
 
     @DynamoDBIndexHashKey(globalSecondaryIndexName = "id-index", attributeName = "id")
     private String id;
-    private String firstName;
-    private String lastName;
+    private String name;
     @DynamoDBHashKey
     private String email;
     private String phoneNumber;
     private String companyName;
-    private String location;
+    private String address;
+    private String userName;
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public String getId() {
         return id;
@@ -35,20 +28,20 @@ public class Account {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmail() {
@@ -75,15 +68,25 @@ public class Account {
         this.companyName = companyName;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
     @Override
     public String toString() {
         return "Account{" +
                 "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", companyName='" + companyName + '\'' +
+                ", address='" + address + '\'' +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 }
