@@ -102,15 +102,15 @@ public class AccountController {
 
     }
     @GetMapping(path = "/v1/accounts")
-    public ResponseEntity getAccountByCode(@RequestParam("code") Optional<String> code) {
+    public ResponseEntity getAccountByCode(@RequestParam("accessToken") Optional<String> accessToken) {
         try {
 
-            if (!code.isPresent()) {
+            if (!accessToken.isPresent()) {
                 return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())
                         , getCorsHeaders(), HttpStatus.NOT_FOUND);
             }
             //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
-            Optional<Account> account = accountsService.getAccountByCode(code.get());
+            Optional<Account> account = accountsService.getAccountByCode(accessToken.get());
             log.info("Fetched account {} ", account);
             if (!account.isPresent()) {
                 return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())

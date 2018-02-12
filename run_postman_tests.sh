@@ -12,10 +12,13 @@ ENV=$1
 ##login and grab tokens
 authJson=`aws cognito-idp admin-initiate-auth --cli-input-json file://integration/auth/auth.json --query '{Token:AuthenticationResult.AccessToken,Id:AuthenticationResult.IdToken}'`
 
-echo $authJson
 ##parse them out
 id=`echo $authJson | jq -r '.Id'`
 token=`echo $authJson | jq -r '.Token'`
 echo $id
 echo $token
-newman run integration/Moodle_Accounts.postman_collection.json -e integration/moodle_accounts_${ENV}.postman_environment.json --timeout-request 15000
+
+sed -id "s/REPLACE_ACCESS_TOKEN/$token/g" integration/moodle_accounts_dev.postman_environment.json
+sed -id "s/REPLACE_AUTHORIZATION/$id/g" integration/moodle_accounts_dev.postman_environment.json
+
+newman run integration/Moodle_Account_Cognito.postman_collection.json -e integration/moodle_accounts_${ENV}.postman_environment.json --timeout-request 15000
