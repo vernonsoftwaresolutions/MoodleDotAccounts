@@ -74,35 +74,7 @@ public class AccountController {
 
         }
     }
-    @GetMapping(path = "/v1/accounts")
-    public ResponseEntity getAccountByEmail(@RequestParam("email") Optional<String> email) {
-        try {
 
-            log.debug("Request received for email {} ", email);
-            //if email not present return error
-            if (!email.isPresent()) {
-                log.debug("email not present, returning error");
-                return new ResponseEntity(new Error(ERROR), getCorsHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
-
-            }
-            //otherwise go get them emails.  We don't care if none exist, we'll just return an empty array
-            Optional<Account> account = accountsService.getAccount(email.get());
-            log.info("Fetched account {} ", account);
-            if(!account.isPresent()){
-                return new ResponseEntity(new Error(HttpStatus.NOT_FOUND.getReasonPhrase())
-                        , getCorsHeaders(), HttpStatus.NOT_FOUND);
-
-            }
-            //return
-            return new ResponseEntity(account.get(), getCorsHeaders(), HttpStatus.OK);
-        }
-        catch (Exception e){
-            log.error("Error processing request ", e);
-            return new ResponseEntity(new Error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()),
-                    getCorsHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
     @GetMapping(path = "/v1/accounts/{id}")
     public ResponseEntity getAccountById(@PathVariable("id") String id) {
         try {
